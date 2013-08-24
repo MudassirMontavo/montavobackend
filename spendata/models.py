@@ -35,6 +35,34 @@ class AcxiomData(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
+class MobileAppUserData(models.Model):
+    user_id = models.TextField(blank=True)
+    first_name = models.TextField(blank=True)
+    last_name = models.TextField(blank=True)
+    mobile_number = models.TextField(blank=True)
+    gender = models.TextField(blank=True)
+    user_city = models.TextField(blank=True)
+    user_state = models.TextField(blank=True)
+    user_zip = models.IntegerField(null=True, blank=True)
+    user_country = models.TextField(blank=True)
+    user_email = models.TextField(blank=True)
+    income_range = models.TextField(blank=True)
+    age_range = models.TextField(blank=True)
+    area_code = models.TextField(blank=True)
+
+class MobileAppMobileData(models.Model):
+    user_data = models.ForeignKey('MobileAppUserData')
+    device_id = models.TextField(blank=True)
+    wireless_carrier = models.TextField(blank=True)
+    device_manufacturer = models.TextField(blank=True)
+    device_model = models.TextField(blank=True)
+
+class MobileAppLocationData(models.Model):
+    device_data = models.ForeignKey('MobileAppMobileData')
+    user_latitude = models.FloatField(null=True, blank=True)
+    user_longitude = models.FloatField(null=True, blank=True)
+    capture_time_utc = models.DateTimeField(null=True, blank=True)
+ 
 class ELFDataRequestImpressionClick(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
