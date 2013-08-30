@@ -1,3 +1,4 @@
+import logging
 from django.core.management.base import BaseCommand, CommandError
 from spendata.acxiom import read_into_db
 
