@@ -1,5 +1,5 @@
-
 import csv 
+import codecs
 from spendata.models import AcxiomData, ACXIOM_FIELD_MAPPING
 
 def read_into_db():
@@ -14,7 +14,12 @@ def read_into_db():
                     rowmap[title] = colnum
                 continue
             if row[rowmap['BusinessName']]:
-                acxiom = AcxiomData()
-                for r in rowmap.keys():
-                    setattr(acxiom, ACXIOM_FIELD_MAPPING[r]) = row[rowmap[r]]
-                acxiom.save()
+                try:
+                    acxiom = AcxiomData()
+                    for r in rowmap.keys():
+                        if not row[rowmap[r]]:
+                            continue
+                        setattr(acxiom, ACXIOM_FIELD_MAPPING[r], row[rowmap[r]])
+                    acxiom.save()
+                except Exception as e:
+                    print repr(row)

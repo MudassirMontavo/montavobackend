@@ -22,18 +22,21 @@ class AcxiomData(models.Model):
     display_name = models.TextField(blank=True)
     business_name = models.TextField(blank=True)
     corporate_name = models.TextField(blank=True)
-    street_number = models.IntegerField(null=True, blank=True)
+    street_number = models.TextField(blank=True)
     street_directional = models.TextField(blank=True)
     street_name = models.TextField(blank=True)
     street_suffix = models.TextField(blank=True)
     post_directional = models.TextField(blank=True)
     unit_designator = models.TextField(blank=True)
-    unit_number = models.IntegerField(null=True, blank=True)
+    unit_number = models.TextField(blank=True)
     city_name = models.TextField(blank=True)
     state_code = models.TextField(blank=True)
-    zip_code = models.IntegerField(null=True, blank=True)
+    zip_code = models.TextField(null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.business_name
 
 class MobileAppUserData(models.Model):
     user_id = models.TextField(blank=True)
@@ -49,6 +52,9 @@ class MobileAppUserData(models.Model):
     income_range = models.TextField(blank=True)
     age_range = models.TextField(blank=True)
     area_code = models.TextField(blank=True)
+    
+    def __unicode__(self):
+        return self.user_id
 
 class MobileAppMobileData(models.Model):
     user_data = models.ForeignKey('MobileAppUserData')
@@ -57,12 +63,18 @@ class MobileAppMobileData(models.Model):
     device_manufacturer = models.TextField(blank=True)
     device_model = models.TextField(blank=True)
 
+    def __unicode__(self):
+        return self.device_id
+
 class MobileAppLocationData(models.Model):
     device_data = models.ForeignKey('MobileAppMobileData')
     user_latitude = models.FloatField(null=True, blank=True)
     user_longitude = models.FloatField(null=True, blank=True)
     capture_time_utc = models.DateTimeField(null=True, blank=True)
  
+    def __unicode__(self):
+        return self.capture_time_utc
+
 class ELFDataRequestImpressionClick(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
@@ -215,6 +227,9 @@ the time of the request event.""")
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
+    def __unicode__(self):
+        return self.event_time
+
 class ELFDataConversion(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual conversion, using the format: 
@@ -318,3 +333,6 @@ example: c.gender=male or c.age=30.""")
     traffic_rejected = models.BooleanField(blank=True, default=False,
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
+
+    def __unicode__(self):
+        return self.event_time
