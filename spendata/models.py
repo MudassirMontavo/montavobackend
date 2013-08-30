@@ -258,7 +258,7 @@ impression event (False).""")
         help_text="""The kind action that triggered the conversion beacon. For example:
 sign-up or lead""")
     user_ip_address = models.TextField(blank=True,
-        help_text="""he IP address of the end-user associated with the ad serving event.""")
+        help_text="""The IP address of the end-user associated with the ad serving event.""")
     user_latitude = models.FloatField(null=True, blank=True,
         help_text="""The latitude coordinate of the end-user associated with the ad serving event.""")
     user_longitude = models.FloatField(null=True, blank=True,
