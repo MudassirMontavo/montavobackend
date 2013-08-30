@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from spendata.serializers import UserSerializer, GroupSerializer
-
+from spendata.serializers import UserSerializer, GroupSerializer, AcxiomDataSerializer
+from spendata.models import AcxiomData
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -17,3 +17,10 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+class AcxiomDataViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Acxiom Data to be viewed
+    """
+    queryset = AcxiomData.objects.all()
+    serializer_class = AcxiomDataSerializer
