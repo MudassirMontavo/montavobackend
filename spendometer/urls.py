@@ -5,7 +5,7 @@ from spendata import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'acxiomdatta', views.AcxiomDataViewSet)
+router.register(r'acxiom', views.AcxiomDataViewSet)
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
