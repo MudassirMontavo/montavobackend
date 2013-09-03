@@ -3,9 +3,13 @@ from rest_framework import routers
 from spendata import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+# no need for these at the moment
+#router.register(r'users', views.UserViewSet)
+#router.register(r'groups', views.GroupViewSet)
 router.register(r'acxiom', views.AcxiomDataViewSet)
+router.register(r'mobile_user', views.MobileAppUserDataViewSet)
+router.register(r'mobile_data', views.MobileAppMobileDataViewSet)
+router.register(r'mobile_location', views.MobileAppLocationDataViewSet)
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

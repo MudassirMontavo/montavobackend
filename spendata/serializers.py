@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from spendata.models import AcxiomData
+from spendata.models import AcxiomData, MobileAppUserData, MobileAppMobileData, MobileAppLocationData
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,5 +15,17 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 class AcxiomDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomData
+
+class MobileAppUserDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MobileAppUserData
+
+class MobileAppMobileDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MobileAppMobileData
+
+class MobileAppLocationDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AcxiomData
