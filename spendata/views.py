@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User, Group
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework import permissions
 from spendata.serializers import UserSerializer, GroupSerializer, AcxiomDataSerializer, MobileAppUserDataSerializer, MobileAppMobileDataSerializer, MobileAppLocationDataSerializer
@@ -13,7 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 class GroupViewSet(viewsets.ModelViewSet):
-    """
+    """ 
     API endpoint that allows groups to be viewed or edited.
     """
     queryset = Group.objects.all()
