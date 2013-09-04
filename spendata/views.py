@@ -32,7 +32,6 @@ class MobileAppUserDataViewSet(viewsets.ModelViewSet):
     """
     queryset = MobileAppUserData.objects.all()
     serializer_class = MobileAppUserDataSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class MobileAppMobileDataViewSet(viewsets.ModelViewSet):
     """
@@ -40,7 +39,6 @@ class MobileAppMobileDataViewSet(viewsets.ModelViewSet):
     """
     queryset = MobileAppMobileData.objects.all()
     serializer_class = MobileAppMobileDataSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class MobileAppLocationDataViewSet(viewsets.ModelViewSet):
     """
@@ -48,4 +46,3 @@ class MobileAppLocationDataViewSet(viewsets.ModelViewSet):
     """
     queryset = MobileAppLocationData.objects.all()
     serializer_class = MobileAppLocationDataSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
