@@ -51,7 +51,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    'PAGINATE_BY': 500
+    'PAGINATE_BY': 50,
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
