@@ -25,7 +25,9 @@ class MobileAppUserDataSerializer(serializers.HyperlinkedModelSerializer):
 class MobileAppMobileDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MobileAppMobileData
+        read_only_fields = ('user_data',)
 
 class MobileAppLocationDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = AcxiomData
+        model = MobileAppLocationData
+        read_only_fields = ('device_data',)

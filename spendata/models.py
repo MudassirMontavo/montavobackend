@@ -57,7 +57,8 @@ class MobileAppUserData(models.Model):
         return self.user_id
 
 class MobileAppMobileData(models.Model):
-    user_data = models.ForeignKey('MobileAppUserData')
+    user_data = models.ForeignKey('MobileAppUserData', blank=True, null=True, related_name='mobile_data')
+    user_id = models.TextField(blank=True)
     device_id = models.TextField(blank=True)
     wireless_carrier = models.TextField(blank=True)
     device_manufacturer = models.TextField(blank=True)
@@ -67,7 +68,8 @@ class MobileAppMobileData(models.Model):
         return self.device_id
 
 class MobileAppLocationData(models.Model):
-    device_data = models.ForeignKey('MobileAppMobileData')
+    device_data = models.ForeignKey('MobileAppMobileData', blank=True, null=True, related_name='location_data')
+    device_id = models.TextField(blank=True)
     user_latitude = models.FloatField(null=True, blank=True)
     user_longitude = models.FloatField(null=True, blank=True)
     capture_time_utc = models.DateTimeField(null=True, blank=True)
