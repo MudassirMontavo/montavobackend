@@ -20,6 +20,7 @@ oauthlib==0.5.1
 ox3apiclient==0.2.1
 psycopg2==2.5.1
 pygraphviz==1.2
+python-dateutil==2.1
 readline==6.2.4.1
 requests-oauthlib==0.3.3
 requests==1.2.3
