@@ -115,7 +115,7 @@ class DataField(object):
         return dateutil.parser.parse(string)
     
     # Data field types - e.g. string: TextField
-    TEXTFIELD = ('TextField', 'blank=True', lambda x: x)
+    TEXTFIELD = ('TextField', 'blank=True', lambda x: '' if x is None else x)
     FIELD_TYPES = {
         'int':        ('IntegerField', 'null=True, blank=True', int),
         'bigint':     ('BigIntegerField', 'null=True, blank=True', long),
