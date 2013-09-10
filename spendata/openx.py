@@ -50,3 +50,12 @@ ox.get('/a/account/availableFields?action=create')
 # Creative
 # Rule
 # Report
+
+# ZIPPED ELF feeds
+# http://stackoverflow.com/questions/3947120/does-python-urllib2-will-automaticly-uncompress-gzip-data-from-fetch-webpage
+
+# we need
+# 1. Stores (which are Advertisers from OpenX viewpoint) [All accounts with Account Type=6 in current implementation]
+# 2. Campaigns [Orders + Order Line Items + Creatives]
+# 3. Advertisements [All ads within campaign window]
+# 4. ELF [Performance basis ads]

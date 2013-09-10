@@ -77,7 +77,19 @@ class MobileAppLocationData(models.Model):
     def __unicode__(self):
         return self.capture_time_utc
 
+class ELFSerial(models.Model):
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    serial = models.BigIntegerField(blank=True, null=True, default=0)
+
 class ELFDataRequestImpressionClick(models.Model):
+    EVENT_CHOICES = (
+        ('R', 'request'),
+        ('I', 'impression'),
+        ('C', 'click'),
+    )
+    event_type = models.CharField(max_length=1, choices=EVENT_CHOICES,
+            blank=True, default = 'R')
+
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
 YYYYMM-DD hh:mm:ss. For example: 2011-02-28 12:45:30""")
