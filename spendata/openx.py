@@ -84,7 +84,33 @@ class OpenXDataRetriever(object):
                 )
                 
                 self._parsers[name][field_name] = field.parser
-                
+    
+    @classmethod
+    def get_serializer_code(cls):
+        
+        for name in cls.DATA_TYPES:
+            print """
+class OpenX{0}Serializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenX{0}""".format(name.capitalize())
+        
+        
+    @classmethod
+    def get_views_code(cls):
+
+        for name in cls.DATA_TYPES:
+            print """
+class OpenX{0}ViewSet(viewsets.ModelViewSet):
+    queryset = OpenX{0}.objects.all()
+    serializer_class = OpenX{0}Serializer""".format(name.capitalize())
+
+    @classmethod
+    def get_url_code(cls):
+
+        for name in cls.DATA_TYPES:
+            print "router.register(r'openx_{}', views.OpenX{}ViewSet)".format(name.lower(), name.capitalize())
+
+
 def parse_data(data, parsers, name):
     
     parsed_data = {}

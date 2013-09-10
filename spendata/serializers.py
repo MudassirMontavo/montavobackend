@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from spendata.models import AcxiomData, MobileAppUserData, MobileAppMobileData, MobileAppLocationData
+from spendata.models import *
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'groups')
-
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -31,3 +30,53 @@ class MobileAppLocationDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MobileAppLocationData
         read_only_fields = ('device_data',)
+
+
+# OpenX Data Serializers        
+class OpenXAccountSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXAccount
+
+class OpenXUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXUser
+
+class OpenXRoleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXRole
+
+class OpenXSiteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXSite
+
+class OpenXAdunitSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXAdunit
+
+class OpenXAdunitgroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXAdunitgroup
+
+class OpenXOrderSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXOrder
+
+class OpenXLineitemSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXLineitem
+
+class OpenXAdSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXAd
+
+class OpenXCreativeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXCreative
+
+class OpenXRuleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXRule
+
+class OpenXReportSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXReport
