@@ -23,18 +23,43 @@ class ELFDataRetriever(OpenXDataRetriever):
 
     def get_elf_data(self, datatype='request'):
         
-        serial = 112307
+        # TODO store serial
+        serials = {
+            'request': 112845, # 112646,
+            'click': 0,
+            'impression': 0
+        }
         
         for datatype in ['request', 'click', 'impression']:
         
-            dataset = self.ox.get(self.EVENT_URL.format(type=datatype, serial=serial)).get('dataset',[])
+            serial = serials[datatype]
+        
+            try:
+                logger.info('Requesting eventfeed for type: {}, serial: {}'.format(datatype, serial))
+                dataset = self.ox.get(self.EVENT_URL.format(type=datatype, serial=serial)).get('dataset',[])
+                
+                if dataset:
+                    logger.info('Eventfeed length: {}, ranges from serials {} to {}'.format(
+                        len(dataset), 
+                        dataset[-1].get('serial'),
+                        dataset[0].get('serial')
+                    ))
+                else:
+                    logger.warning('Eventfeed is empty')
+                
+            except Exception as e:
+                logger.exception(e)
+                continue
             
-            for row in dataset:
+            # Reverse order - oldest to newest
+            for row in dataset[::-1]:
+                logger.info('Processing serial {}'.format(row.get('serial')))
+                
                 # Only unzip non-zero records
                 if int(row['@recordCount']) == 0:
                     continue
                 
-                # TODO handle multiple parts? 
+                # TODO handle multiple parts? Why is this a dict?
                 if not isinstance(row['parts'], dict):
                     raise NotImplementedError('Parts is not a dict')
                     
@@ -53,13 +78,24 @@ class ELFDataRetriever(OpenXDataRetriever):
         
     def save_elf_data(self, data, row, datatype):
         
-        print data
-        print row
-        print datatype
+        if int(row['@revision']) > 1:
+            raise NotImplementedError('Revision incremented')
         
-        
-        
-        pass
+        for d in data:
+            try:
+                # Fix #event_time
+                d['event_time'] = d.pop('#event_time')
+                d['event_type'] = datatype[0].upper() # 'request' -> 'R'
+                
+                # Remove empty items
+                d = {k: v for k, v in d.iteritems() if v is not None and v != ''}
+                
+                obj = ELFDataRequestImpressionClick.objects.create(**d)
+                logger.info('ELF data id {} saved'.format(obj.id))
+            
+            except KeyError as e:
+                logger.exception(e)
+                logger.info(d)
     
 
 def parse_filename(filename):
