@@ -57,20 +57,20 @@ class OpenXDataRetriever(object):
             'lineitem', 'ad', 'creative', 'rule', 'report']
 
         # Data field types - e.g. string: TextField
-        textfield = ('TextField', 'null=True')
+        textfield = ('TextField', 'blank=True')
         FIELD_TYPES = {
-            'int':        ('IntegerField', 'null=True'),
-            'bigint':     ('BigIntegerField', 'null=True'),
+            'int':        ('IntegerField', 'null=True, blank=True'),
+            'bigint':     ('BigIntegerField', 'null=True, blank=True'),
+            'datetime':   ('DateTimeField', 'null=True, blank=True'),
+            'timestamp':  ('DateTimeField', 'null=True, blank=True'),
             'string':     textfield,
-            'datetime':   ('DateTimeField', ''),
-            'timestamp':  ('DateTimeField', ''),
             'varchar':    textfield,
             'varbinary':  textfield,
             'mediumtext': textfield,
             'email':      textfield,
             'ids':        textfield, # ??
             'url':        textfield,
-            'decimal':    ('DecimalField', 'max_digits={}, decimal_places={}')
+            'decimal':    ('DecimalField', 'max_digits={}, decimal_places={}, null=True, blank=True')
         }
 
         for name in DATA_TYPES:
