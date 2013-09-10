@@ -242,7 +242,7 @@ the time of the request event.""")
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
     def __unicode__(self):
-        return self.event_time
+        return str(self.event_time)
 
 class ELFDataConversion(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
@@ -349,7 +349,7 @@ example: c.gender=male or c.age=30.""")
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
     def __unicode__(self):
-        return self.event_time
+        return str(self.event_time)
 
 
 
