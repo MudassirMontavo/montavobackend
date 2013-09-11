@@ -1,12 +1,27 @@
 import random
 from collections import defaultdict
-from spendata.models import ELFRequestData, MobileAppLocationData
+from spendata.models import MobileAppLocationData, MobileAppUserData, MobileAppMobileData, MobileAppUserHomeCircle
 
 RESOLUTION = 10**4 # ~10m
 
-def get_home_circles():
+def save_home_circle(user_id):
     
-    data = MobileAppLocationData.objects.all().values('user_latitude', 'user_longitude')
+    home_circle, weighting = get_home_circle(user_id)
+    
+    user_data = MobileAppUserData.objects.get(user_id=user_id)
+    
+    home_circle, created = MobileAppUserHomeCircle.objects.get_or_create(
+        user_data = user_data,
+        defaults = {
+            'latitude':  home_circle[0],
+            'longitude': home_circle[1],
+            'weighting': weighting
+        }
+    )
+
+def get_home_circle(user_id='test'):
+    
+    data = MobileAppLocationData.objects.filter(device_data__user_id=user_id).values('user_latitude', 'user_longitude')
     
     histogram = defaultdict(lambda: defaultdict(int))
     
@@ -28,27 +43,25 @@ def get_home_circles():
             
             latitude = float(x)/RESOLUTION
             longitude = float(y)/RESOLUTION
-            
-            # if count > 1:
-                # print latitude, longitude, count
         
             if count > highest_count:
                 home_circle = latitude, longitude
                 highest_count = count
     
-    print home_circle, highest_count
+    # print home_circle, highest_count, len(data)
     
-    return home_circle
-    
+    return home_circle, float(highest_count)/len(data)
 
-def generate_random_data(centre_point=None, num_random_locations=10000, sigma=0.001):
+def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0001):
     
-    MobileAppLocationData.objects.all().delete()
+    MobileAppLocationData.objects.filter(device_data__user_id='test').delete()
     
     if centre_point is None:
-        centre_point = 47.37, -122.20
+        centre_point = 47.37, -122.20 # Seattle
         
     objects = []
+    
+    testuser, created = MobileAppMobileData.objects.get_or_create(user_id='test')
 
     for i in range(num_random_locations):
         x = random.normalvariate(centre_point[0], sigma)
@@ -56,7 +69,8 @@ def generate_random_data(centre_point=None, num_random_locations=10000, sigma=0.
         
         objects.append(MobileAppLocationData (
             user_latitude = x,
-            user_longitude = y
+            user_longitude = y,
+            device_data = testuser
         ))
         
     MobileAppLocationData.objects.bulk_create(objects)
