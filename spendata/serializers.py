@@ -31,6 +31,11 @@ class MobileAppLocationDataSerializer(serializers.HyperlinkedModelSerializer):
         model = MobileAppLocationData
         read_only_fields = ('device_data',)
 
+class MobileAppUserHomeCircleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MobileAppUserHomeCircle
+        read_only_fields = ('user_data',)
+
 
 # OpenX Data Serializers        
 class OpenXAccountSerializer(serializers.HyperlinkedModelSerializer):

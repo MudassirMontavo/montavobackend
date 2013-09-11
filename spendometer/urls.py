@@ -14,6 +14,7 @@ router.register(r'acxiom', views.AcxiomDataViewSet)
 router.register(r'mobile_user', views.MobileAppUserDataViewSet)
 router.register(r'mobile_data', views.MobileAppMobileDataViewSet)
 router.register(r'mobile_location', views.MobileAppLocationDataViewSet)
+router.register(r'mobile_user_home_circle', views.MobileAppUserHomeCircleViewSet)
 
 router.register(r'openx_account', views.OpenXAccountViewSet)
 router.register(r'openx_user', views.OpenXUserViewSet)
