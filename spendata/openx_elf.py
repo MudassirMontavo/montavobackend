@@ -75,7 +75,7 @@ ELF_FIRST_SERIAL = {
 # HTTPError: HTTP Error 502: Bad Gateway
 
 
-class ELFDataRetriever(spendata.openx.OpenXDataRetriever):
+class ELFDataRetriever(OpenXDataRetriever):
 
     EVENT_URL = '/a/eventfeed?type={type}&range={serial}&format=json&pretty=true'
 
