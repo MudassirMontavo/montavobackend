@@ -77,19 +77,8 @@ class MobileAppLocationData(models.Model):
     def __unicode__(self):
         return self.capture_time_utc
 
-class ELFSerial(models.Model):
-    created = models.DateTimeField(editable=False, auto_now_add=True)
-    serial = models.BigIntegerField(blank=True, null=True, default=0)
-
-class ELFDataRequestImpressionClick(models.Model):
-    EVENT_CHOICES = (
-        ('R', 'request'),
-        ('I', 'impression'),
-        ('C', 'click'),
-    )
-    event_type = models.CharField(max_length=1, choices=EVENT_CHOICES,
-            blank=True, default = 'R')
-
+class ELFCommonData(models.Model):
+    """ Abstract base class for Request"""
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
 YYYYMM-DD hh:mm:ss. For example: 2011-02-28 12:45:30""")
@@ -241,10 +230,27 @@ the time of the request event.""")
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
+
+    serial_number = models.IntegerField(null=True, blank=True) 
+    part_id = models.IntegerField(null=True, blank=True)
+    revision = models.IntegerField(default=1)
+
     def __unicode__(self):
         return str(self.event_time)
+            
+    class Meta:
+        abstract = True
 
-class ELFDataConversion(models.Model):
+class ELFRequestData(ELFCommonData):
+    pass
+    
+class ELFImpressionData(ELFCommonData):
+    pass
+
+class ELFClickData(ELFCommonData):
+    pass
+
+class ELFConversionData(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual conversion, using the format: 
 YYYY-MM-DD hh:mm:ss. For example: 2011-02-28 12:45:30""")
