@@ -30,6 +30,8 @@ class OpenXDataRetriever(object):
     _parsers = defaultdict(dict)
     
     def __init__(self):
+        logger.info('OX Logging on...')
+        
         self.ox = ox3apiclient.Client(
             email=email,
             password=password,
@@ -40,7 +42,7 @@ class OpenXDataRetriever(object):
 
         self.ox.logon(email, password)
 
-        logger.info('OX Logon')
+        logger.info('OX Logged on')
 
     def get_lookup_data(self):
         
