@@ -80,3 +80,20 @@ class OpenXRuleSerializer(serializers.HyperlinkedModelSerializer):
 class OpenXReportSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = OpenXReport
+        
+# ELF Data
+class ELFRequestDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ELFRequestData
+
+class ELFClickDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ELFClickData
+
+class ELFImpressionDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ELFImpressionData
+
+class ELFConversionDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ELFConversionData

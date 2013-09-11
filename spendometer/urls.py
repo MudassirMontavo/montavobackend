@@ -28,6 +28,11 @@ router.register(r'openx_creative', views.OpenXCreativeViewSet)
 router.register(r'openx_rule', views.OpenXRuleViewSet)
 router.register(r'openx_report', views.OpenXReportViewSet)
 
+router.register(r'elf_request', views.ELFRequestDataViewSet)
+router.register(r'elf_click', views.ELFClickDataViewSet)
+router.register(r'elf_impression', views.ELFImpressionDataViewSet)
+router.register(r'elf_conversion', views.ELFConversionDataViewSet)
+
 # Admin stuff
 admin.autodiscover()
 

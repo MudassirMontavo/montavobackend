@@ -96,3 +96,21 @@ class OpenXRuleViewSet(viewsets.ModelViewSet):
 class OpenXReportViewSet(viewsets.ModelViewSet):
     queryset = OpenXReport.objects.all()
     serializer_class = OpenXReportSerializer
+    
+    
+# ELF Data
+class ELFRequestDataViewSet(viewsets.ModelViewSet):
+    queryset = ELFRequestData.objects.all()
+    serializer_class = ELFRequestDataSerializer
+    
+class ELFClickDataViewSet(viewsets.ModelViewSet):
+    queryset = ELFClickData.objects.all()
+    serializer_class = ELFClickDataSerializer
+
+class ELFImpressionDataViewSet(viewsets.ModelViewSet):
+    queryset = ELFImpressionData.objects.all()
+    serializer_class = ELFImpressionDataSerializer
+
+class ELFConversionDataViewSet(viewsets.ModelViewSet):
+    queryset = ELFConversionData.objects.all()
+    serializer_class = ELFConversionDataSerializer
