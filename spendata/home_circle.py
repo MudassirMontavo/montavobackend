@@ -50,6 +50,9 @@ def get_home_circle(user_id='test'):
     
     # print home_circle, highest_count, len(data)
     
+    if not data:
+        return (None, None), None
+    
     return home_circle, float(highest_count)/len(data)
 
 def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0001):
@@ -61,7 +64,8 @@ def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0
         
     objects = []
     
-    testuser, created = MobileAppMobileData.objects.get_or_create(user_id='test')
+    testuserdevice, created = MobileAppMobileData.objects.get_or_create(user_id='test')
+    testuser, created = MobileAppUserData.objects.get_or_create(user_id='test', defaults = {'mobile_data': testuserdevice})
 
     for i in range(num_random_locations):
         x = random.normalvariate(centre_point[0], sigma)
@@ -70,7 +74,7 @@ def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0
         objects.append(MobileAppLocationData (
             user_latitude = x,
             user_longitude = y,
-            device_data = testuser
+            device_data = testuserdevice
         ))
         
     MobileAppLocationData.objects.bulk_create(objects)

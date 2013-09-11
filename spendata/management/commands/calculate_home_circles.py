@@ -18,5 +18,5 @@ class Command(BaseCommand):
                 spendata.home_circle.save_home_circle(user_id)
             
         except Exception as e:
-            logger.error("Error loading OpenX lookup data into the DB: %s" % str(e))
-            raise CommandError("Error loading OpenX lookup data into the DB: %s" % str(e))
+            logger.error("Error calculating users home circles: %s" % str(e))
+            raise CommandError("Error calculating users home circles: %s" % str(e))
