@@ -59,3 +59,6 @@ ox.get('/a/account/availableFields?action=create')
 # 2. Campaigns [Orders + Order Line Items + Creatives]
 # 3. Advertisements [All ads within campaign window]
 # 4. ELF [Performance basis ads]
+ 
+# TODO - sometimes (once in a blue moon) we get a new revision of ELF data. in this case 
+# '@revision': '1' will be 2 and we need to replace all of the data within the range startTimestamp & endTimestamp

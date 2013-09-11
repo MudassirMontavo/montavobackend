@@ -3,6 +3,7 @@ import codecs
 from spendata.models import AcxiomData, ACXIOM_FIELD_MAPPING
 
 def read_into_db():
+    """ Reading the (old) Acxiom CSV file into the database """
     rowmap = {}
     with open('fixtures/acxiom_seattle.csv','rU') as csvfile:
         reader = csv.reader(csvfile)
@@ -23,3 +24,8 @@ def read_into_db():
                     acxiom.save()
                 except Exception as e:
                     print repr(row)
+
+
+# Record ID - 10 character alpha/numeric code for a specific record for a business (may change month to month)
+# Master Record ID - associated with all the records for one particular business and location
+# Thus, the Master Record ID is a consistent and persistent identifier from month to month and from file to file.
