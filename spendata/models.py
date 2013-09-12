@@ -77,19 +77,8 @@ class MobileAppLocationData(models.Model):
     def __unicode__(self):
         return self.capture_time_utc
 
-class ELFSerial(models.Model):
-    created = models.DateTimeField(editable=False, auto_now_add=True)
-    serial = models.BigIntegerField(blank=True, null=True, default=0)
-
-class ELFDataRequestImpressionClick(models.Model):
-    EVENT_CHOICES = (
-        ('R', 'request'),
-        ('I', 'impression'),
-        ('C', 'click'),
-    )
-    event_type = models.CharField(max_length=1, choices=EVENT_CHOICES,
-            blank=True, default = 'R')
-
+class ELFCommonData(models.Model):
+    """ Abstract base class for Request"""
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
 YYYYMM-DD hh:mm:ss. For example: 2011-02-28 12:45:30""")
@@ -241,10 +230,27 @@ the time of the request event.""")
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
-    def __unicode__(self):
-        return self.event_time
 
-class ELFDataConversion(models.Model):
+    serial_number = models.IntegerField(null=True, blank=True) 
+    part_id = models.IntegerField(null=True, blank=True)
+    revision = models.IntegerField(default=1)
+
+    def __unicode__(self):
+        return str(self.event_time)
+            
+    class Meta:
+        abstract = True
+
+class ELFRequestData(ELFCommonData):
+    pass
+    
+class ELFImpressionData(ELFCommonData):
+    pass
+
+class ELFClickData(ELFCommonData):
+    pass
+
+class ELFConversionData(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual conversion, using the format: 
 YYYY-MM-DD hh:mm:ss. For example: 2011-02-28 12:45:30""")
@@ -349,4 +355,269 @@ example: c.gender=male or c.age=30.""")
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
 
     def __unicode__(self):
-        return self.event_time
+        return str(self.event_time)
+
+
+
+####################
+# OpenX data
+class OpenXAccount(models.Model):
+    primary_contact_id        = models.IntegerField(null=True, blank=True)
+    blocked_creativetypes     = models.TextField(blank=True)
+    ac_account_id             = models.IntegerField(null=True, blank=True)
+    total_impressions         = models.IntegerField(null=True, blank=True)
+    account_manager_id        = models.IntegerField(null=True, blank=True)
+    currency_id               = models.IntegerField(null=True, blank=True)
+    brands                    = models.TextField(blank=True)
+    filters                   = models.TextField(blank=True)
+    uplift                    = models.IntegerField(null=True, blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    sales_lead_id             = models.IntegerField(null=True, blank=True)
+    country_of_business_id    = models.TextField(blank=True)
+    blocked_contentattributes = models.TextField(blank=True)
+    blocked_languages         = models.TextField(blank=True)
+    clicks                    = models.IntegerField(null=True, blank=True)
+    allow_unbranded_buyers    = models.IntegerField(null=True, blank=True)
+    status                    = models.TextField(blank=True)
+    fill_rate                 = models.IntegerField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    exchange                  = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    buyer_breakout            = models.IntegerField(null=True, blank=True)
+    market_active             = models.IntegerField(null=True, blank=True)
+    single_ad_limitation      = models.IntegerField(null=True, blank=True)
+    account_type_id           = models.IntegerField(null=True, blank=True)
+    market_currency_id        = models.IntegerField(null=True, blank=True)
+    brand_labels              = models.TextField(blank=True)
+    name                      = models.TextField(blank=True)
+    timezone_id               = models.IntegerField(null=True, blank=True)
+    notes                     = models.TextField(blank=True)
+    total_conversions         = models.IntegerField(null=True, blank=True)
+    instance_id               = models.IntegerField(null=True, blank=True)
+    blocked_adcategories      = models.TextField(blank=True)
+    billing_contact_id        = models.IntegerField(null=True, blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    domains                   = models.TextField(blank=True)
+    requests                  = models.IntegerField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+
+
+class OpenXUser(models.Model):
+    status                    = models.TextField(blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    first_name                = models.TextField(blank=True)
+    last_name                 = models.TextField(blank=True)
+    verified                  = models.IntegerField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    roles                     = models.TextField(blank=True)
+    locale                    = models.TextField(blank=True)
+    notes                     = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    default_report_range      = models.TextField(blank=True)
+    terms_accepted            = models.DateTimeField(null=True, blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    email                     = models.TextField(blank=True)
+
+
+class OpenXRole(models.Model):
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    name                      = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    acl_uid                   = models.TextField(blank=True)
+    system                    = models.IntegerField(null=True, blank=True)
+    compiled_acl              = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+
+
+class OpenXSite(models.Model):
+    filters                   = models.TextField(blank=True)
+    domain_override           = models.TextField(blank=True)
+    blocked_creativetypes     = models.TextField(blank=True)
+    category_override         = models.IntegerField(null=True, blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    content_topic_id          = models.IntegerField(null=True, blank=True)
+    blocked_contentattributes = models.TextField(blank=True)
+    blocked_languages         = models.TextField(blank=True)
+    allow_unbranded_buyers    = models.IntegerField(null=True, blank=True)
+    status                    = models.TextField(blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    delivery_medium_id        = models.IntegerField(null=True, blank=True)
+    brands                    = models.TextField(blank=True)
+    name                      = models.TextField(blank=True)
+    brand_labels              = models.TextField(blank=True)
+    content_type_id           = models.IntegerField(null=True, blank=True)
+    url                       = models.TextField(blank=True)
+    notes                     = models.TextField(blank=True)
+    platform_id               = models.TextField(blank=True)
+    blocked_adcategories      = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    domains                   = models.TextField(blank=True)
+    external_id               = models.TextField(blank=True)
+
+
+class OpenXAdunit(models.Model):
+    status                    = models.TextField(blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    sitesection_id            = models.IntegerField(null=True, blank=True)
+    name                      = models.TextField(blank=True)
+    content_type_id           = models.IntegerField(null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    site_id                   = models.IntegerField(null=True, blank=True)
+    alt_sizes                 = models.TextField(blank=True)
+    delivery_medium_id        = models.IntegerField(null=True, blank=True)
+    vast_tag                  = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    content_topics            = models.TextField(blank=True)
+    primary_size              = models.TextField(blank=True)
+    real_time_bid_floor       = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+
+
+class OpenXAdunitgroup(models.Model):
+    status                    = models.TextField(blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    adunits                   = models.TextField(blank=True)
+    name                      = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    description               = models.TextField(blank=True)
+    site_id                   = models.IntegerField(null=True, blank=True)
+    delivery_medium_id        = models.IntegerField(null=True, blank=True)
+    vast_tag                  = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    masteradunit_id           = models.IntegerField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+
+
+class OpenXOrder(models.Model):
+    status                    = models.TextField(blank=True)
+    booking_account_id        = models.IntegerField(null=True, blank=True)
+    sales_lead_id             = models.IntegerField(null=True, blank=True)
+    primary_trafficker_id     = models.IntegerField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    end_date                  = models.DateTimeField(null=True, blank=True)
+    click_through_window      = models.IntegerField(null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    notes                     = models.TextField(blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    budget                    = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    secondary_trafficker_id   = models.IntegerField(null=True, blank=True)
+    primary_analyst_id        = models.IntegerField(null=True, blank=True)
+    creator_id                = models.IntegerField(null=True, blank=True)
+    single_ad_limitation      = models.IntegerField(null=True, blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    view_through_window       = models.IntegerField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    start_date                = models.DateTimeField(null=True, blank=True)
+    name                      = models.TextField(blank=True)
+
+
+class OpenXLineitem(models.Model):
+    pricing_model_id          = models.IntegerField(null=True, blank=True)
+    lifetime_impression_cap   = models.IntegerField(null=True, blank=True)
+    lifetime_click_cap        = models.IntegerField(null=True, blank=True)
+    companion_fill_method_id  = models.IntegerField(null=True, blank=True)
+    deliver_by_default        = models.IntegerField(null=True, blank=True)
+    daily_click_cap           = models.IntegerField(null=True, blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    make_good                 = models.IntegerField(null=True, blank=True)
+    ad_delivery_id            = models.IntegerField(null=True, blank=True)
+    share_of_voice            = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
+    lifetime_action_cap       = models.IntegerField(null=True, blank=True)
+    pacing_model_id           = models.IntegerField(null=True, blank=True)
+    priority                  = models.IntegerField(null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    buying_model_id           = models.IntegerField(null=True, blank=True)
+    daily_impression_goal     = models.BigIntegerField(null=True, blank=True)
+    start_date                = models.DateTimeField(null=True, blank=True)
+    status                    = models.TextField(blank=True)
+    session_duration          = models.IntegerField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    end_date                  = models.DateTimeField(null=True, blank=True)
+    order_id                  = models.IntegerField(null=True, blank=True)
+    targeting_rules           = models.TextField(blank=True)
+    session_display_cap       = models.IntegerField(null=True, blank=True)
+    delivery_medium_id        = models.IntegerField(null=True, blank=True)
+    individual_display_cap    = models.IntegerField(null=True, blank=True)
+    lifetime_impression_goal  = models.BigIntegerField(null=True, blank=True)
+    daily_impression_cap      = models.IntegerField(null=True, blank=True)
+    budget_type               = models.TextField(blank=True)
+    single_ad_limitation      = models.IntegerField(null=True, blank=True)
+    name                      = models.TextField(blank=True)
+    pricing_rate              = models.DecimalField(max_digits=11, decimal_places=4, null=True, blank=True)
+    oxtl                      = models.TextField(blank=True)
+    notes                     = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+
+
+class OpenXAd(models.Model):
+    status                    = models.TextField(blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    days_of_week              = models.TextField(blank=True)
+    session_duration          = models.IntegerField(null=True, blank=True)
+    hours_of_day              = models.TextField(blank=True)
+    name                      = models.TextField(blank=True)
+    end_date                  = models.DateTimeField(null=True, blank=True)
+    deliver_by_default        = models.IntegerField(null=True, blank=True)
+    order_id                  = models.IntegerField(null=True, blank=True)
+    creative_id               = models.IntegerField(null=True, blank=True)
+    ad_weight                 = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    session_display_cap       = models.IntegerField(null=True, blank=True)
+    ad_type_id                = models.IntegerField(null=True, blank=True)
+    individual_display_cap    = models.IntegerField(null=True, blank=True)
+    notes                     = models.TextField(blank=True)
+    lineitem_id               = models.IntegerField(null=True, blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    start_date                = models.DateTimeField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+
+
+class OpenXCreative(models.Model):
+    file2                     = models.TextField(blank=True)
+    account_id                = models.IntegerField(null=True, blank=True)
+    source                    = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    bitrate                   = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    notes                     = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    uri                       = models.TextField(blank=True)
+    height                    = models.IntegerField(null=True, blank=True)
+    ad_type_id                = models.IntegerField(null=True, blank=True)
+    width                     = models.IntegerField(null=True, blank=True)
+    orig_name                 = models.TextField(blank=True)
+    file                      = models.TextField(blank=True)
+    file_size                 = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
+    duration                  = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    external_id               = models.TextField(blank=True)
+    mime_type                 = models.TextField(blank=True)
+    name                      = models.TextField(blank=True)
+
+
+class OpenXRule(models.Model):
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    attribute                 = models.TextField(blank=True)
+    value                     = models.TextField(blank=True)
+    lineitem_id               = models.IntegerField(null=True, blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    operator                  = models.TextField(blank=True)
+    external_id               = models.TextField(blank=True)
+    dimension                 = models.TextField(blank=True)
+
+
+class OpenXReport(models.Model):
+    modified_date             = models.DateTimeField(null=True, blank=True)
+    user_id                   = models.IntegerField(null=True, blank=True)
+    name                      = models.TextField(blank=True)
+    deleted                   = models.IntegerField(null=True, blank=True)
+    parameter_string          = models.TextField(blank=True)
+    created_date              = models.DateTimeField(null=True, blank=True)
+    relative_date             = models.TextField(blank=True)

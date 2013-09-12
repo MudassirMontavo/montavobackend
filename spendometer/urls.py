@@ -15,6 +15,24 @@ router.register(r'mobile_user', views.MobileAppUserDataViewSet)
 router.register(r'mobile_data', views.MobileAppMobileDataViewSet)
 router.register(r'mobile_location', views.MobileAppLocationDataViewSet)
 
+router.register(r'openx_account', views.OpenXAccountViewSet)
+router.register(r'openx_user', views.OpenXUserViewSet)
+router.register(r'openx_role', views.OpenXRoleViewSet)
+router.register(r'openx_site', views.OpenXSiteViewSet)
+router.register(r'openx_adunit', views.OpenXAdunitViewSet)
+router.register(r'openx_adunitgroup', views.OpenXAdunitgroupViewSet)
+router.register(r'openx_order', views.OpenXOrderViewSet)
+router.register(r'openx_lineitem', views.OpenXLineitemViewSet)
+router.register(r'openx_ad', views.OpenXAdViewSet)
+router.register(r'openx_creative', views.OpenXCreativeViewSet)
+router.register(r'openx_rule', views.OpenXRuleViewSet)
+router.register(r'openx_report', views.OpenXReportViewSet)
+
+router.register(r'elf_request', views.ELFRequestDataViewSet)
+router.register(r'elf_click', views.ELFClickDataViewSet)
+router.register(r'elf_impression', views.ELFImpressionDataViewSet)
+router.register(r'elf_conversion', views.ELFConversionDataViewSet)
+
 # Admin stuff
 admin.autodiscover()
 
