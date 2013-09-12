@@ -54,7 +54,7 @@ class MobileAppUserData(models.Model):
     area_code = models.TextField(blank=True)
     
     def __unicode__(self):
-        return self.user_id
+        return str(self.user_id)
 
 class MobileAppMobileData(models.Model):
     user_data = models.ForeignKey('MobileAppUserData', blank=True, null=True, related_name='mobile_data')
@@ -65,7 +65,7 @@ class MobileAppMobileData(models.Model):
     device_model = models.TextField(blank=True)
 
     def __unicode__(self):
-        return self.device_id
+        return str(self.device_id)
 
 class MobileAppLocationData(models.Model):
     device_data = models.ForeignKey('MobileAppMobileData', blank=True, null=True, related_name='location_data')
@@ -75,7 +75,14 @@ class MobileAppLocationData(models.Model):
     capture_time_utc = models.DateTimeField(null=True, blank=True)
  
     def __unicode__(self):
-        return self.capture_time_utc
+        return str(self.capture_time_utc)
+
+class MobileAppUserHomeCircle(models.Model):
+    user_data = models.ForeignKey('MobileAppUserData', blank=True, null=True, related_name='home_circle')
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    weighting = models.FloatField(null=True, blank=True)
+    
 
 class ELFCommonData(models.Model):
     """ Abstract base class for Request"""

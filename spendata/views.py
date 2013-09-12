@@ -46,7 +46,14 @@ class MobileAppLocationDataViewSet(viewsets.ModelViewSet):
     """
     queryset = MobileAppLocationData.objects.all()
     serializer_class = MobileAppLocationDataSerializer
-    
+
+class MobileAppUserHomeCircleViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Acxiom Data to be viewed
+    """
+    queryset = MobileAppUserHomeCircle.objects.all()
+    serializer_class = MobileAppUserHomeCircleSerializer
+
 
 # OpenX Data
 class OpenXAccountViewSet(viewsets.ModelViewSet):
