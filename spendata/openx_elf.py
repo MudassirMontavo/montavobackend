@@ -20,14 +20,16 @@ class ELFLogDialect(csv.Dialect):
 ELFDATATYPE = {
     'request':    ELFRequestData,
     'click':      ELFClickData,
-    'impression': ELFImpressionData
+    'impression': ELFImpressionData,
+    'conversion': ELFConversionData,
 }
 
 # Serial to start with if nothing in DB
 ELF_FIRST_SERIAL = {
     'request': 112845,
-    'click': 0,
-    'impression': 0
+    'click': 82300,
+    'impression': 103400,
+    'conversion': 85790,
 }
 
 # Conversion: 
@@ -81,7 +83,7 @@ class ELFDataRetriever(OpenXDataRetriever):
 
     def get_elf_data(self, datatype='request'):
         
-        for datatype in ['request', 'click', 'impression']:
+        for datatype in ['request', 'click', 'impression', 'conversion']:
         
             serial = get_latest_serial(datatype)
             
@@ -173,6 +175,23 @@ def get_latest_serial(datatype):
         logger.warning('No serial for {}, starting at {}'.format(datatype, serial))
         
     return serial
+    
+
+# Apparently the 5295476f....value is common among all feeds
+ 
+# Through hit and trial I found:
+# Impressions:
+# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=impression&format=json&range=103400&pretty=true
+# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_impression_log_minutely/2013-09/impressions_v4_2013-09-11_15-58_5295476f-cc8f-492d-a748-305882e65e47.txt.gz (note: impression_log vs impressions_v4, the same pattern appears in the click/conversion/impression file URLs)
+ 
+# Click:
+# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=click&format=json&range=82300&pretty=true
+# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_click_log_minutely/2013-09/clicks_v4_2013-09-11_15-58_5295476f-cc8f-492d-a748-305882e65e47.txt.gz 
+ 
+# Conversion:
+# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=conversion&format=json&range=85790&pretty=true
+# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_conversion_log_minutely/2013-09/conversions_v4_2013-09-11_15-54_5295476f-cc8f-492d-a748-305882e65e47.txt.gz 
+
     
 # ELF_LOG_FIELDS = ['event_time',
 #  'transaction_id',
