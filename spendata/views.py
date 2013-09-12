@@ -121,3 +121,24 @@ class ELFImpressionDataViewSet(viewsets.ModelViewSet):
 class ELFConversionDataViewSet(viewsets.ModelViewSet):
     queryset = ELFConversionData.objects.all()
     serializer_class = ELFConversionDataSerializer
+
+# Acxiom Data
+class AcxiomBdfGroupsViewSet(viewsets.ModelViewSet):
+    queryset = AcxiomBdfGroups.objects.all()
+    serializer_class = AcxiomBdfGroupsSerializer
+
+class AcxiomBdfIndexViewSet(viewsets.ModelViewSet):
+    queryset = AcxiomBdfIndex.objects.all()
+    serializer_class = AcxiomBdfIndexSerializer
+
+class AcxiomBdfOrgsViewSet(viewsets.ModelViewSet):
+    queryset = AcxiomBdfOrgs.objects.all()
+    serializer_class = AcxiomBdfOrgsSerializer
+
+class AcxiomBdfPrimaryViewSet(viewsets.ModelViewSet):
+    queryset = AcxiomBdfPrimary.objects.all()
+    serializer_class = AcxiomBdfPrimarySerializer
+
+class AcxiomEbdfOrdViewSet(viewsets.ModelViewSet):
+    queryset = AcxiomEbdfOrd.objects.all()
+    serializer_class = AcxiomEbdfOrdSerializer

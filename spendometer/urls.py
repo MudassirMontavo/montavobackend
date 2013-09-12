@@ -10,7 +10,6 @@ router = routers.DefaultRouter()
 # no need for these at the moment
 #router.register(r'users', views.UserViewSet)
 #router.register(r'groups', views.GroupViewSet)
-router.register(r'acxiom', views.AcxiomDataViewSet)
 router.register(r'mobile_user', views.MobileAppUserDataViewSet)
 router.register(r'mobile_data', views.MobileAppMobileDataViewSet)
 router.register(r'mobile_location', views.MobileAppLocationDataViewSet)
@@ -33,6 +32,13 @@ router.register(r'elf_request', views.ELFRequestDataViewSet)
 router.register(r'elf_click', views.ELFClickDataViewSet)
 router.register(r'elf_impression', views.ELFImpressionDataViewSet)
 router.register(r'elf_conversion', views.ELFConversionDataViewSet)
+
+router.register(r'acxiom_old', views.AcxiomDataViewSet)
+router.register(r'acxiom_bdfgroups', views.AcxiomBdfGroupsViewSet)
+router.register(r'acxiom_bdfindex', views.AcxiomBdfIndexViewSet)
+router.register(r'acxiom_bdforgs', views.AcxiomBdfOrgsViewSet)
+router.register(r'acxiom_bdfprimary', views.AcxiomBdfPrimaryViewSet)
+router.register(r'acxiom_ebdford', views.AcxiomEbdfOrdViewSet)
 
 # Admin stuff
 admin.autodiscover()

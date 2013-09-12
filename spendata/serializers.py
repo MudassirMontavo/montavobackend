@@ -102,3 +102,24 @@ class ELFImpressionDataSerializer(serializers.HyperlinkedModelSerializer):
 class ELFConversionDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ELFConversionData
+
+# Acxiom Data
+class AcxiomBdfGroupsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomBdfGroups
+
+class AcxiomBdfIndexSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomBdfIndex
+
+class AcxiomBdfOrgsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomBdfOrgs
+
+class AcxiomBdfPrimarySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomBdfPrimary
+
+class AcxiomEbdfOrdSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomEbdfOrd
