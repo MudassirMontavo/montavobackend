@@ -3,6 +3,8 @@ import sys
 import os
 import urlparse
 
+CHANGE = 0
+
 ##### CHANGE ME #####
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
