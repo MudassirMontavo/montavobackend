@@ -129,21 +129,21 @@ if os.environ.get('DATABASE_URL'):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ##### heroku with redis cloud #####
-# if os.environ.get('REDISCLOUD_URL'):
-#     redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+if os.environ.get('REDISCLOUD_URL'):
+    redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
 
-#     CACHES = {
-#         'default': {
-#             "BACKEND": "redis_cache.cache.RedisCache",
-#             'LOCATION': '%s:%s:0' % (redis_url.hostname, redis_url.port),
-#             'OPTIONS': {
-#                 'PASSWORD': redis_url.password,
-#             }
-#         }
-#     }
+    CACHES = {
+        'default': {
+            "BACKEND": "redis_cache.cache.RedisCache",
+            'LOCATION': '%s:%s:0' % (redis_url.hostname, redis_url.port),
+            'OPTIONS': {
+                'PASSWORD': redis_url.password,
+            }
+        }
+    }
 
-#     BROKER_URL = os.environ.get('REDISCLOUD_URL')
-#     CELERY_RESULT_BACKEND = os.environ.get('REDISCLOUD_URL')
+    BROKER_URL = os.environ.get('REDISCLOUD_URL')
+    CELERY_RESULT_BACKEND = os.environ.get('REDISCLOUD_URL')
 
 
 # Local time zone for this installation. Choices can be found here:
