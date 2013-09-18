@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'rest_framework',
     'rest_framework_swagger',
+    'django_filters',
     'debug_toolbar',
     'spendata',
     'south',
@@ -52,6 +53,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'PAGINATE_BY': 10,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
