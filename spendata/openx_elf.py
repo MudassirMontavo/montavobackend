@@ -32,51 +32,6 @@ ELF_FIRST_SERIAL = {
     'conversion': 85790,
 }
 
-# Conversion: 
-# HTTPError: HTTP Error 404: ODFI failure: invalid range
-
-# Click: 
-# [ERROR] [openx_elf get_elf_data] Eventfeed for type click throws an error
-# Traceback (most recent call last):
-#   File "/Users/alex/Gramercy/spendometer/project/spendata/openx_elf.py", line 50, in get_elf_data
-#     dataset = self.ox.get(url).get('dataset',[])
-#   File "/Users/alex/.virtualenvs/spendometer/lib/python2.7/site-packages/ox3apiclient/__init__.py", line 285, in get
-#     res = self.request(self._resolve_url(url), method='GET')
-#   File "/Users/alex/.virtualenvs/spendometer/lib/python2.7/site-packages/ox3apiclient/__init__.py", line 152, in request
-#     res = urllib2.urlopen(req)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 126, in urlopen
-#     return _opener.open(url, data, timeout)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 400, in open
-#     response = self._open(req, data)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 418, in _open
-#     '_open', req)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 378, in _call_chain
-#     result = func(*args)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 1207, in http_open
-#     return self.do_open(httplib.HTTPConnection, req)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 1180, in do_open
-#     r = h.getresponse(buffering=True)
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/httplib.py", line 1030, in getresponse
-#     response.begin()
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/httplib.py", line 407, in begin
-#     version, status, reason = self._read_status()
-#   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/httplib.py", line 371, in _read_status
-#     raise BadStatusLine(line)
-# BadStatusLine: ''
-
-# Impression: 
-# [DEBUG] [openx_elf get_elf_data] Requesting URL '/a/eventfeed?type=impression&range=0&format=json&pretty=true'
-# [ERROR] [openx_elf get_elf_data] Eventfeed for type impression throws an error
-# Traceback (most recent call last):
-#   File "/Users/alex/Gramercy/spendometer/project/spendata/openx_elf.py", line 50, in get_elf_data
-#     #   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/urllib2.py", line 1207, in http_open
-#   File "/Users/alex/.virtualenvs/spendometer/lib/python2.7/site-packages/ox3apiclient/__init__.py", line 285, in get
-#     res = self.request(self._resolve_url(url), method='GET')
-#   File "/Users/alex/.virtualenvs/spendometer/lib/python2.7/site-packages/ox3apiclient/__init__.py", line 159, in request
-#     raise err
-# HTTPError: HTTP Error 502: Bad Gateway
-
-
 class ELFDataRetriever(OpenXDataRetriever):
 
     EVENT_URL = '/a/eventfeed?type={type}&range={serial}&format=json&pretty=true'
@@ -177,22 +132,6 @@ def get_latest_serial(datatype):
     return serial
     
 
-# Apparently the 5295476f....value is common among all feeds
- 
-# Through hit and trial I found:
-# Impressions:
-# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=impression&format=json&range=103400&pretty=true
-# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_impression_log_minutely/2013-09/impressions_v4_2013-09-11_15-58_5295476f-cc8f-492d-a748-305882e65e47.txt.gz (note: impression_log vs impressions_v4, the same pattern appears in the click/conversion/impression file URLs)
- 
-# Click:
-# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=click&format=json&range=82300&pretty=true
-# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_click_log_minutely/2013-09/clicks_v4_2013-09-11_15-58_5295476f-cc8f-492d-a748-305882e65e47.txt.gz 
- 
-# Conversion:
-# http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed?type=conversion&format=json&range=85790&pretty=true
-# File url sample format: http://montavo-ui3.openxenterprise.com/ox/3.0/a/eventfeed/fetch?file=/5295476f-cc8f-492d-a748-305882e65e47/ox_conversion_log_minutely/2013-09/conversions_v4_2013-09-11_15-54_5295476f-cc8f-492d-a748-305882e65e47.txt.gz 
-
-    
 # ELF_LOG_FIELDS = ['event_time',
 #  'transaction_id',
 #  'transaction_time',
