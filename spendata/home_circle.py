@@ -40,11 +40,10 @@ def get_home_circle(user_id='test'):
     
     for x,v in histogram.iteritems():
         for y,count in v.iteritems():
-            
-            latitude = float(x)/RESOLUTION
-            longitude = float(y)/RESOLUTION
         
             if count > highest_count:
+                latitude = float(x)/RESOLUTION
+                longitude = float(y)/RESOLUTION
                 home_circle = latitude, longitude
                 highest_count = count
     
