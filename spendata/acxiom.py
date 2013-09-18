@@ -56,12 +56,11 @@ class AcxiomDataReader(object):
         with open(os.path.join("fixtures", acxiom_file),'r') as f:
             reader = csv.DictReader(f, dialect=AcxiomTXTDialect)
             model = getattr(spendata.models, self.get_model_name(acxiom_file))
-            logger.info("Reading data into {} model".format(model))
-            line_list = list(reader)
-            logger.info("Found {} records".format(len(line_list)))
-            for line in line_list:
+            logger.info("Reading data into {} model".format(model))       
+            for n, line in enumerate(reader):
                 line = {self.get_field_name(k): v for k, v in line.iteritems()}
                 obj, created = model.objects.get_or_create(recordid=line.pop('recordid'), defaults=line)
+            logger.info("Inserted {} records".format(n))
                 
     def get_model_code(self):
         for acxiom_file in ACXIOM_FILES:
