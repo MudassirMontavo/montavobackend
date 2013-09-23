@@ -175,7 +175,7 @@ class ELFConversionDataViewSet(viewsets.ModelViewSet):
 class AcxiomBdfGroupsViewSet(viewsets.ModelViewSet):
     queryset = AcxiomBdfGroups.objects.all()
     serializer_class = AcxiomBdfGroupsSerializer
-    filter_fields = AcxiomBdfGroups()._meta.get_all_field_names()
+    filter_class = AcxiomBdfGroupsFilter
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','fulladdress')
  
@@ -187,20 +187,20 @@ class AcxiomBdfIndexViewSet(viewsets.ModelViewSet):
 class AcxiomBdfOrgsViewSet(viewsets.ModelViewSet):
     queryset = AcxiomBdfOrgs.objects.all()
     serializer_class = AcxiomBdfOrgsSerializer
-    filter_fields = AcxiomBdfOrgs()._meta.get_all_field_names()
+    filter_class = AcxiomBdfOrgsFilter
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','fulladdress')
 
 class AcxiomBdfPrimaryViewSet(viewsets.ModelViewSet):
     queryset = AcxiomBdfPrimary.objects.all()
     serializer_class = AcxiomBdfPrimarySerializer
-    filter_fields = AcxiomBdfPrimary()._meta.get_all_field_names()
+    filter_class = AcxiomBdfPrimaryFilter
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','fulladdress')
 
 class AcxiomEbdfOrdViewSet(viewsets.ModelViewSet):
     queryset = AcxiomEbdfOrd.objects.all()
     serializer_class = AcxiomEbdfOrdSerializer
-    filter_fields = AcxiomEbdfOrd()._meta.get_all_field_names()
+    filter_fields = AcxiomBdfIndex()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','corporatename')

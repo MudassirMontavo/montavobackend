@@ -1,5 +1,5 @@
 import django_filters
-from spendata.models import ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData, MobileAppLocationData, MobileAppUserHomeCircle
+from spendata.models import ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData, MobileAppLocationData, MobileAppUserHomeCircle, AcxiomBdfGroups, AcxiomBdfPrimary, AcxiomBdfOrgs
 
 class ELFRequestDataFilter(django_filters.FilterSet):
     user_latitude = django_filters.RangeFilter()
@@ -37,9 +37,20 @@ class MobileAppUserHomeCircleFilter(django_filters.FilterSet):
     class Meta:
         model = MobileAppUserHomeCircle
 
+class AcxiomBdfGroupsFilter(django_filters.FilterSet):
+    latitude = django_filters.RangeFilter()
+    longitude = django_filters.RangeFilter()
+    class Meta:
+        model = AcxiomBdfGroups
 
-# We will be creating the logic which allows for the following queries (please add/amend if necessary):
-# 1) Give me all imps /clicks and requests for a particular advertiser
-#  -- by location
-# or for all locations
-# 2) Give me all imps/clicks and requests for a particular advertiser which match a user name
+class AcxiomBdfPrimaryFilter(django_filters.FilterSet):
+    latitude = django_filters.RangeFilter()
+    longitude = django_filters.RangeFilter()
+    class Meta:
+        model = AcxiomBdfPrimary
+
+class AcxiomBdfOrgsFilter(django_filters.FilterSet):
+    latitude = django_filters.RangeFilter()
+    longitude = django_filters.RangeFilter()
+    class Meta:
+        model = AcxiomBdfOrgs
