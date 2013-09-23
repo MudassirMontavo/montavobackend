@@ -1,8 +1,10 @@
 import random
+import datetime
 from collections import defaultdict
 from spendata.models import MobileAppLocationData, MobileAppUserData, MobileAppMobileData, MobileAppUserHomeCircle
 
 RESOLUTION = 10**4 # ~10m
+LOCATION_HISTORY_DAYS = 3 # from the Spendometer Use Cases
 
 def save_home_circle(user_id):
     
@@ -21,7 +23,13 @@ def save_home_circle(user_id):
 
 def get_home_circle(user_id='test'):
     
-    data = MobileAppLocationData.objects.filter(device_data__user_id=user_id).values('user_latitude', 'user_longitude')
+    data = MobileAppLocationData.objects.filter(
+        device_data__user_id=user_id,
+        capture_time_utc__gt=(
+            datetime.datetime.utcnow() 
+            - datetime.timedelta(days=LOCATION_HISTORY_DAYS)
+        ),
+    ).values('user_latitude', 'user_longitude')
     
     histogram = defaultdict(lambda: defaultdict(int))
     
@@ -73,7 +81,8 @@ def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0
         objects.append(MobileAppLocationData (
             user_latitude = x,
             user_longitude = y,
-            device_data = testuserdevice
+            device_data = testuserdevice,
+            capture_time_utc = datetime.datetime.utcnow(),
         ))
         
     MobileAppLocationData.objects.bulk_create(objects)

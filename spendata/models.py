@@ -82,7 +82,7 @@ class MobileAppUserHomeCircle(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     weighting = models.FloatField(null=True, blank=True)
-    
+    updated = models.DateTimeField(editable=False, auto_now=True)
 
 class ELFCommonData(models.Model):
     """ Abstract base class for Request"""
