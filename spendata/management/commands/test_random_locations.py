@@ -15,5 +15,5 @@ class Command(BaseCommand):
             spendata.home_circle.generate_random_data()
             
         except Exception as e:
-            logger.error("Error loading OpenX lookup data into the DB: %s" % str(e))
-            raise CommandError("Error loading OpenX lookup data into the DB: %s" % str(e))
+            logger.error("Error generating test locations: %s" % str(e))
+            raise CommandError("Error generating test locations: %s" % str(e))
