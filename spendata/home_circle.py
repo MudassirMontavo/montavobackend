@@ -13,7 +13,7 @@ def save_home_circle(user_id):
     user_data = MobileAppUserData.objects.get(user_id=user_id)
     
     home_circle, created = MobileAppUserHomeCircle.objects.get_or_create(
-        user_data = user_data,
+        user_id = user_data.user_id,
         defaults = {
             'latitude':  home_circle[0],
             'longitude': home_circle[1],
@@ -23,8 +23,11 @@ def save_home_circle(user_id):
 
 def get_home_circle(user_id='test'):
     
+    devices = MobileAppMobileData.objects.filter(
+        user_id=user_id,
+    )
     data = MobileAppLocationData.objects.filter(
-        device_data__user_id=user_id,
+        device_id__in=[d.device_id for d in devices],
         capture_time_utc__gt=(
             datetime.datetime.utcnow() 
             - datetime.timedelta(days=LOCATION_HISTORY_DAYS)
@@ -64,7 +67,10 @@ def get_home_circle(user_id='test'):
 
 def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0001):
     
-    MobileAppLocationData.objects.filter(device_data__user_id='test').delete()
+    devices = MobileAppMobileData.objects.filter(
+        user_id='test',
+    )
+    MobileAppLocationData.objects.filter(device_id__in=[d.device_id for d in devices]).delete()
     
     if centre_point is None:
         centre_point = 47.37, -122.20 # Seattle
@@ -72,7 +78,13 @@ def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0
     objects = []
     
     testuser, created = MobileAppUserData.objects.get_or_create(user_id='test')
-    testuserdevice, created = MobileAppMobileData.objects.get_or_create(user_id='test', defaults = {'user_data': testuser})
+    testuserdevice, created = MobileAppMobileData.objects.get_or_create(
+        user_id='test', 
+        defaults = {
+            'user_id': testuser.user_id,
+            'device_id': 'test',
+        },
+    )
 
     for i in range(num_random_locations):
         x = random.normalvariate(centre_point[0], sigma)
@@ -81,7 +93,7 @@ def generate_random_data(centre_point=None, num_random_locations=1000, sigma=0.0
         objects.append(MobileAppLocationData (
             user_latitude = x,
             user_longitude = y,
-            device_data = testuserdevice,
+            device_id = testuserdevice.device_id,
             capture_time_utc = datetime.datetime.utcnow(),
         ))
         

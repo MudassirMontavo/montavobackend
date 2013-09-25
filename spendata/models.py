@@ -1,3 +1,4 @@
+import re
 from django.db import models
 
 ACXIOM_FIELD_MAPPING = {
@@ -39,7 +40,7 @@ class AcxiomData(models.Model):
         return self.business_name
 
 class MobileAppUserData(models.Model):
-    user_id = models.TextField(blank=True)
+    user_id = models.TextField(blank=True, unique=True)
     first_name = models.TextField(blank=True)
     last_name = models.TextField(blank=True)
     mobile_number = models.TextField(blank=True)
@@ -57,32 +58,54 @@ class MobileAppUserData(models.Model):
         return str(self.user_id)
 
 class MobileAppMobileData(models.Model):
-    user_data = models.ForeignKey('MobileAppUserData', blank=True, null=True, related_name='mobile_data')
+    device_id = models.TextField(blank=True, unique=True)
     user_id = models.TextField(blank=True)
-    device_id = models.TextField(blank=True)
     wireless_carrier = models.TextField(blank=True)
     device_manufacturer = models.TextField(blank=True)
     device_model = models.TextField(blank=True)
+
+    def _get_user(self):
+        try:
+            return MobileAppUserData.objects.get(user_id=self.user_id)
+        except MobileAppMobileData.DoesNotExist:
+            return None
+
+    mobile_user = property(_get_user)
 
     def __unicode__(self):
         return str(self.device_id)
 
 class MobileAppLocationData(models.Model):
-    device_data = models.ForeignKey('MobileAppMobileData', blank=True, null=True, related_name='location_data')
     device_id = models.TextField(blank=True)
     user_latitude = models.FloatField(null=True, blank=True)
     user_longitude = models.FloatField(null=True, blank=True)
     capture_time_utc = models.DateTimeField(null=True, blank=True)
  
+    def _get_device(self):
+        try:
+            return MobileAppMobileData.objects.get(device_id=self.device_id)
+        except MobileAppMobileData.DoesNotExist:
+            return None
+
+    mobile_device = property(_get_device)
+
     def __unicode__(self):
         return str(self.capture_time_utc)
 
 class MobileAppUserHomeCircle(models.Model):
-    user_data = models.ForeignKey('MobileAppUserData', blank=True, null=True, related_name='home_circle')
+    user_id = models.TextField(blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     weighting = models.FloatField(null=True, blank=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
+
+    def _get_user(self):
+        try:
+            return MobileAppUserData.objects.get(user_id=self.user_id)
+        except MobileAppUserData.DoesNotExist:
+            return None
+
+    mobile_user = property(_get_user)
 
 class ELFCommonData(models.Model):
     """ Abstract base class for Request"""
@@ -236,11 +259,21 @@ the time of the request event.""")
     traffic_rejected = models.BooleanField(blank=True, default=False,
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
-
-
     serial_number = models.IntegerField(null=True, blank=True) 
     part_id = models.IntegerField(null=True, blank=True)
     revision = models.IntegerField(default=1)
+
+    def _get_device(self):
+        r = re.findall(r"deviceid\=([^^]+)", self.custom_fields)
+        if not r:
+            return None
+        device_id = r[0]
+        try:
+            return MobileAppMobileData.objects.get(device_id=device_id)
+        except MobileAppMobileData.DoesNotExist:
+            return None
+
+    mobile_device = property(_get_device)
 
     def __unicode__(self):
         return str(self.event_time)
@@ -360,6 +393,18 @@ example: c.gender=male or c.age=30.""")
     traffic_rejected = models.BooleanField(blank=True, default=False,
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
+
+    def _get_device(self):
+        r = re.findall(r"deviceid\=([^^]+)", self.custom_fields)
+        if not r:
+            return None
+        device_id = r[0]
+        try:
+            return MobileAppMobileData.objects.get(device_id=device_id)
+        except MobileAppMobileData.DoesNotExist:
+            return None
+
+    mobile_device = property(_get_device)
 
     def __unicode__(self):
         return str(self.event_time)

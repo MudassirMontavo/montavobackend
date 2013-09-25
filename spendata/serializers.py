@@ -22,19 +22,18 @@ class MobileAppUserDataSerializer(serializers.HyperlinkedModelSerializer):
         model = MobileAppUserData
 
 class MobileAppMobileDataSerializer(serializers.HyperlinkedModelSerializer):
+    mobile_user = MobileAppUserDataSerializer(required=False, read_only=True)
+
     class Meta:
         model = MobileAppMobileData
-        read_only_fields = ('user_data',)
 
 class MobileAppLocationDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MobileAppLocationData
-        read_only_fields = ('device_data',)
 
 class MobileAppUserHomeCircleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MobileAppUserHomeCircle
-        read_only_fields = ('user_data',)
 
 
 # OpenX Data Serializers        
@@ -88,18 +87,26 @@ class OpenXReportSerializer(serializers.HyperlinkedModelSerializer):
         
 # ELF Data
 class ELFRequestDataSerializer(serializers.HyperlinkedModelSerializer):
+    mobile_device = MobileAppMobileDataSerializer(required=False, read_only=True)
+
     class Meta:
         model = ELFRequestData
 
 class ELFClickDataSerializer(serializers.HyperlinkedModelSerializer):
+    mobile_device = MobileAppMobileDataSerializer(required=False, read_only=True)
+
     class Meta:
         model = ELFClickData
 
 class ELFImpressionDataSerializer(serializers.HyperlinkedModelSerializer):
+    mobile_device = MobileAppMobileDataSerializer(required=False, read_only=True)
+
     class Meta:
         model = ELFImpressionData
 
 class ELFConversionDataSerializer(serializers.HyperlinkedModelSerializer):
+    mobile_device = MobileAppMobileDataSerializer(required=False, read_only=True)
+
     class Meta:
         model = ELFConversionData
 
