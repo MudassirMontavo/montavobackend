@@ -19,14 +19,13 @@ def save_home_circle(user_id):
         logger.warning("MobileAppUserData: %s does not exist\n%s" % (user_id, str(e)))
         return
     
-    home_circle, created = MobileAppUserHomeCircle.objects.get_or_create(
+    home_circle = MobileAppUserHomeCircle(
         user_id = user_data.user_id,
-        defaults = {
-            'latitude':  home_circle[0],
-            'longitude': home_circle[1],
-            'weighting': weighting
-        }
+        latitude = home_circle[0],
+        longitude = home_circle[1],
+        weighting = weighting,
     )
+    home_circle.save()
 
 def get_home_circle(user_id='test'):
     
