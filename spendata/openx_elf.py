@@ -29,7 +29,7 @@ ELF_FIRST_SERIAL = {
     'request': 112845,
     'click': 92300,
     'impression': 103400,
-    'conversion': 85790,
+    'conversion': 97155,
 }
 
 class ELFDataRetriever(OpenXDataRetriever):
