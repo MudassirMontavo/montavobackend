@@ -16,7 +16,6 @@ class Command(BaseCommand):
                 user_id = user['user_id']
                 logger.info('Calculating home circle for user: {}'.format(user_id))
                 spendata.home_circle.save_home_circle(user_id)
-            
         except Exception as e:
             logger.error("Error calculating users home circles: %s" % str(e))
             raise CommandError("Error calculating users home circles: %s" % str(e))

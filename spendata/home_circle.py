@@ -16,7 +16,7 @@ def save_home_circle(user_id):
     try:
         user_data = MobileAppUserData.objects.get(user_id=user_id)
     except MobileAppUserData.DoesNotExist as e:
-        logger.warning("MobileAppUserData: %s does not exist\n%s" % (user_id, str(e)))
+        logger.warning("MobileAppUserData: user \'%s\'' does not exist\n%s" % (user_id, str(e)))
         return
     
     home_circle = MobileAppUserHomeCircle(
