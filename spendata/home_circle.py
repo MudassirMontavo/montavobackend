@@ -1,7 +1,10 @@
 import random
 import datetime
+import logger
 from collections import defaultdict
 from spendata.models import MobileAppLocationData, MobileAppUserData, MobileAppMobileData, MobileAppUserHomeCircle
+
+logger = logging.getLogger(__name__)
 
 RESOLUTION = 10**4 # ~10m
 LOCATION_HISTORY_DAYS = 3 # from the Spendometer Use Cases
