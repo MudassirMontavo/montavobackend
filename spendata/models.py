@@ -1,5 +1,6 @@
 import re
 from django.db import models
+from spendata.signals import post_save_add_user_id
 
 ACXIOM_FIELD_MAPPING = {
     'DisplayName': 'display_name',
@@ -162,7 +163,7 @@ with this ad serving event. For example: 3425""")
     screen_location_id = models.TextField(blank=True,
         help_text="""The ID for the screen location of the ad inventory associated with the ad
 serving event. For example: 785""")
-    advertiser_id = models.IntegerField(null=True, blank=True,
+    advertiser_id = models.IntegerField(null=True, blank=True, db_index=True,
         help_text="""The ID for the advertiser account whose ad serves to the ad inventory
 associated with the ad serving event. For example: 56309""")
     order_id = models.IntegerField(null=True, blank=True,
@@ -171,7 +172,7 @@ associated with the ad serving event. For example: 56309""")
     line_item_id = models.IntegerField(null=True, blank=True,
         help_text="""The ID for the line item associated with the ad serving event. For
 example: 4389""")
-    ad_id = models.IntegerField(null=True, blank=True,
+    ad_id = models.IntegerField(null=True, blank=True, db_index=True,
         help_text="""The ID for the ad associated with the ad serving event. For example:
 6732""")
     is_companion = models.BooleanField(blank=True, default=False,
@@ -262,6 +263,7 @@ the time of the request event.""")
     serial_number = models.IntegerField(null=True, blank=True) 
     part_id = models.IntegerField(null=True, blank=True)
     revision = models.IntegerField(default=1)
+    user_id = models.TextField(blank=True, db_index=True)
 
     def _get_device(self):
         r = re.findall(r"deviceid\=([^^]+)", self.custom_fields)
@@ -317,7 +319,7 @@ originated in a separate request event (False).""")
         help_text="""The unique ID of the ad unit group, if any, associated with the ad serving event. For example: 3492""")
     line_item_id  = models.IntegerField(null=True, blank=True,
         help_text="""The ID for the line item associated with the conversion. For example: 4389""")
-    ad_id = models.IntegerField(null=True, blank=True,
+    ad_id = models.IntegerField(null=True, blank=True, db_index=True,
         help_text="""The ID for the ad associated with the conversion. For example: 6732""")
     page_id  = models.IntegerField(null=True, blank=True,
         help_text="""The unique ID of the ad unit group, if any, associated with the conversion.
@@ -327,8 +329,6 @@ For example: 3492""")
     is_click = models.BooleanField(blank=True, default=False,
         help_text="""Indicates if the conversion was set by a click event (True) or an
 impression event (False).""")
-    ad_id = models.IntegerField(null=True, blank=True,
-        help_text="""The ID for the ad associated with the conversion. For example: 6732""")
     action_type = models.TextField(null=True, blank=True,
         help_text="""The kind action that triggered the conversion beacon. For example:
 sign-up or lead""")
@@ -393,6 +393,7 @@ example: c.gender=male or c.age=30.""")
     traffic_rejected = models.BooleanField(blank=True, default=False,
         help_text="""Summarizes traffic quality for the event 
 (either True or False). For example, True indicates if any request, impression, or click was rejected based on traffic quality flags, such as IP blocklists.""")
+    user_id = models.TextField(blank=True, db_index=True)
 
     def _get_device(self):
         r = re.findall(r"deviceid\=([^^]+)", self.custom_fields)
@@ -409,6 +410,13 @@ example: c.gender=male or c.age=30.""")
     def __unicode__(self):
         return str(self.event_time)
 
+# Signal connections
+for model in (ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData):
+    models.signals.post_save.connect(
+        post_save_add_user_id,
+        sender=model,
+        dispatch_uid='spendata.post_save_%s' % model,
+    )
 
 ####################
 # OpenX data
