@@ -1,6 +1,6 @@
 import random
 import datetime
-import logger
+import logging
 from collections import defaultdict
 from spendata.models import MobileAppLocationData, MobileAppUserData, MobileAppMobileData, MobileAppUserHomeCircle
 
