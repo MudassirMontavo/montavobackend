@@ -10,7 +10,11 @@ def save_home_circle(user_id):
     
     home_circle, weighting = get_home_circle(user_id)
     
-    user_data = MobileAppUserData.objects.get(user_id=user_id)
+    try:
+        user_data = MobileAppUserData.objects.get(user_id=user_id)
+    except MobileAppUserData.DoesNotExist as e:
+        logger.warning("MobileAppUserData: %s does not exist\n%s" % (user_id, str(e)))
+        return
     
     home_circle, created = MobileAppUserHomeCircle.objects.get_or_create(
         user_id = user_data.user_id,
