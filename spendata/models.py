@@ -40,7 +40,7 @@ class AcxiomData(models.Model):
         return self.business_name
 
 class MobileAppUserData(models.Model):
-    user_id = models.TextField(blank=True, unique=True)
+    user_id = models.TextField(blank=True, unique=True, db_index=True)
     first_name = models.TextField(blank=True)
     last_name = models.TextField(blank=True)
     mobile_number = models.TextField(blank=True)
@@ -49,7 +49,7 @@ class MobileAppUserData(models.Model):
     user_state = models.TextField(blank=True)
     user_zip = models.IntegerField(null=True, blank=True)
     user_country = models.TextField(blank=True)
-    user_email = models.TextField(blank=True)
+    user_email = models.TextField(blank=True, db_index=True)
     income_range = models.TextField(blank=True)
     age_range = models.TextField(blank=True)
     area_code = models.TextField(blank=True)
@@ -58,8 +58,8 @@ class MobileAppUserData(models.Model):
         return str(self.user_id)
 
 class MobileAppMobileData(models.Model):
-    device_id = models.TextField(blank=True, unique=True)
-    user_id = models.TextField(blank=True)
+    device_id = models.TextField(blank=True, unique=True, db_index=True)
+    user_id = models.TextField(blank=True, db_index=True)
     wireless_carrier = models.TextField(blank=True)
     device_manufacturer = models.TextField(blank=True)
     device_model = models.TextField(blank=True)
@@ -76,7 +76,7 @@ class MobileAppMobileData(models.Model):
         return str(self.device_id)
 
 class MobileAppLocationData(models.Model):
-    device_id = models.TextField(blank=True)
+    device_id = models.TextField(blank=True, db_index=True)
     user_latitude = models.FloatField(null=True, blank=True)
     user_longitude = models.FloatField(null=True, blank=True)
     capture_time_utc = models.DateTimeField(null=True, blank=True)
@@ -93,7 +93,7 @@ class MobileAppLocationData(models.Model):
         return str(self.capture_time_utc)
 
 class MobileAppUserHomeCircle(models.Model):
-    user_id = models.TextField(blank=True)
+    user_id = models.TextField(blank=True, db_index=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     weighting = models.FloatField(null=True, blank=True)
