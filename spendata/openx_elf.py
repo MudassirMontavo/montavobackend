@@ -26,10 +26,10 @@ ELFDATATYPE = {
 
 # Serial to start with if nothing in DB
 ELF_FIRST_SERIAL = {
-    'request': 112845,
-    'click': 92300,
-    'impression': 103400,
-    'conversion': 97155,
+    'request': 152100,
+    'click': 111100,
+    'impression': 137400,
+    'conversion': 118250,
 }
 
 class ELFDataRetriever(OpenXDataRetriever):
