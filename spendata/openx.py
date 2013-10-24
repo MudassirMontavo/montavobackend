@@ -14,7 +14,7 @@ import spendata.models
 logger = logging.getLogger(__name__)
 
 email = "montavotestacct@outlook.com"
-password = "!M0ntav0!"
+password = "M0ntav0Test"
 domain = "montavo-ui3.openxenterprise.com"
 realm = "montavo_ad_server"
 consumer_key = "1a81f2a240f1c3bf78af1353200c9839cb3cad91"
