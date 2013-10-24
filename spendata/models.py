@@ -1082,3 +1082,13 @@ class AcxiomEbdfOrd(models.Model):
     servicearea               = models.TextField(blank=True)
     chainid                   = models.TextField(blank=True)
     cbsa                      = models.TextField(blank=True)
+
+	
+	
+################################
+#### Transition from SQL Server
+
+class AdvertiserStores(models.Model):
+	Openx_account_id = models.TextField(db_index=True)
+	Acxiom_recordid = models.TextField(blank=True)
+	Acxiom_masterrecordid = models.TextField(blank=True,db_index=True)

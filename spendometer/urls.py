@@ -40,6 +40,10 @@ router.register(r'acxiom_bdforgs', views.AcxiomBdfOrgsViewSet)
 router.register(r'acxiom_bdfprimary', views.AcxiomBdfPrimaryViewSet)
 router.register(r'acxiom_ebdford', views.AcxiomEbdfOrdViewSet)
 
+################################
+#### Transition from SQL Server
+router.register(r'AdvertiserStores', views.AdvertiserStoresViewSet)
+
 # Admin stuff
 admin.autodiscover()
 

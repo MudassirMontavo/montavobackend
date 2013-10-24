@@ -204,3 +204,15 @@ class AcxiomEbdfOrdViewSet(viewsets.ModelViewSet):
     filter_fields = AcxiomBdfIndex()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','corporatename')
+
+	
+################################
+#### Transition from SQL Server
+class AdvertiserStoresViewSet(viewsets.ModelViewSet):
+    queryset = AdvertiserStores.objects.all()
+    serializer_class = AdvertiserStoresSerializer
+    filter_fields = AdvertiserStores()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('first_name','last_name',)	
+
+	

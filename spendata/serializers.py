@@ -130,3 +130,9 @@ class AcxiomBdfPrimarySerializer(serializers.HyperlinkedModelSerializer):
 class AcxiomEbdfOrdSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AcxiomEbdfOrd
+
+################################
+#### Transition from SQL Server
+class AdvertiserStoresSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AdvertiserStores
