@@ -136,3 +136,4 @@ class AcxiomEbdfOrdSerializer(serializers.HyperlinkedModelSerializer):
 class AdvertiserStoresSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AdvertiserStores
+		
