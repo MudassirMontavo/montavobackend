@@ -201,7 +201,7 @@ class AcxiomBdfPrimaryViewSet(viewsets.ModelViewSet):
 class AcxiomEbdfOrdViewSet(viewsets.ModelViewSet):
     queryset = AcxiomEbdfOrd.objects.all()
     serializer_class = AcxiomEbdfOrdSerializer
-    filter_fields = AcxiomBdfIndex()._meta.get_all_field_names()
+    filter_fields = AcxiomEbdfOrd()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','corporatename')
 
