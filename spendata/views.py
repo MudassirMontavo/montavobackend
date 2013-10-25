@@ -213,6 +213,9 @@ class AdvertiserStoresViewSet(viewsets.ModelViewSet):
     serializer_class = AdvertiserStoresSerializer
     filter_fields = AdvertiserStores()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
-    search_fields = ('first_name','last_name',)	
 
-	
+class PublisherMobileAppViewSet(viewsets.ModelViewSet):
+    queryset = PublisherMobileApp.objects.all()
+    serializer_class = PublisherMobileAppSerializer
+    filter_fields = PublisherMobileApp()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)

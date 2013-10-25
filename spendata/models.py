@@ -1089,6 +1089,17 @@ class AcxiomEbdfOrd(models.Model):
 #### Transition from SQL Server
 
 class AdvertiserStores(models.Model):
-	Openx_account_id = models.TextField(db_index=True)
-	Acxiom_recordid = models.TextField(blank=True)
-	Acxiom_masterrecordid = models.TextField(blank=True,db_index=True)
+	openx_account_id = models.TextField(db_index=True)
+	acxiom_recordid = models.TextField(blank=True)
+	acxiom_masterrecordid = models.TextField(blank=True,db_index=True)
+	
+
+class PublisherMobileApp(models.Model):
+	applicationname = models.TextField(db_index=True)                          
+	appstoreurl = models.TextField(null=True,blank=True)                          
+	playstoreurl = models.TextField(null=True,blank=True)                          
+	marketplaceurl = models.TextField(null=True,blank=True)                                                      
+	appcategories = models.TextField(null=True,blank=True)                                                      
+	gendertarget = models.TextField(null=True,blank=True)                                                      
+	notes = models.TextField(null=True,blank=True)                              
+	publisherid = models.TextField(db_index=True)                                                        
