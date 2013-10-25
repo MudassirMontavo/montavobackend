@@ -140,3 +140,7 @@ class AdvertiserStoresSerializer(serializers.HyperlinkedModelSerializer):
 class PublisherMobileAppSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PublisherMobileApp
+		
+class PublisherWebAppSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PublisherWebApp

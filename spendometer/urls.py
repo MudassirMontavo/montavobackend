@@ -44,6 +44,7 @@ router.register(r'acxiom_ebdford', views.AcxiomEbdfOrdViewSet)
 #### Transition from SQL Server
 router.register(r'advertiser_stores', views.AdvertiserStoresViewSet)
 router.register(r'publisher_mobile_app', views.PublisherMobileAppViewSet)
+router.register(r'publisher_web_app', views.PublisherWebAppViewSet)
 
 # Admin stuff
 admin.autodiscover()

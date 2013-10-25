@@ -1095,11 +1095,21 @@ class AdvertiserStores(models.Model):
 	
 
 class PublisherMobileApp(models.Model):
-	applicationname = models.TextField(db_index=True)                          
-	appstoreurl = models.TextField(null=True,blank=True)                          
-	playstoreurl = models.TextField(null=True,blank=True)                          
-	marketplaceurl = models.TextField(null=True,blank=True)                                                      
-	appcategories = models.TextField(null=True,blank=True)                                                      
-	gendertarget = models.TextField(null=True,blank=True)                                                      
-	notes = models.TextField(null=True,blank=True)                              
-	publisherid = models.TextField(db_index=True)                                                        
+	applicationname = models.TextField(db_index=True)
+	appstoreurl = models.TextField(null=True,blank=True)
+	playstoreurl = models.TextField(null=True,blank=True)
+	marketplaceurl = models.TextField(null=True,blank=True)
+	appcategories = models.TextField(null=True,blank=True)
+	gendertarget = models.TextField(null=True,blank=True)
+	notes = models.TextField(null=True,blank=True)
+	publisherid = models.TextField(db_index=True)
+
+class PublisherWebApp(models.Model):
+	websitename = models.TextField(db_index=True)
+	websiteurl = models.TextField(null=True,blank=True)
+	categoryfilters = models.TextField(null=True,blank=True)
+	gendertargetting = models.TextField(null=True,blank=True)
+	notes = models.TextField(null=True,blank=True)
+	publisherid = models.TextField(db_index=True)
+
+#address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName

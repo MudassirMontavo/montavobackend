@@ -219,3 +219,10 @@ class PublisherMobileAppViewSet(viewsets.ModelViewSet):
     serializer_class = PublisherMobileAppSerializer
     filter_fields = PublisherMobileApp()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+class PublisherWebAppViewSet(viewsets.ModelViewSet):
+    queryset = PublisherWebApp.objects.all()
+    serializer_class = PublisherWebAppSerializer
+    filter_fields = PublisherWebApp()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('websitename','websiteurl','notes')
