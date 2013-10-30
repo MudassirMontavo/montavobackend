@@ -1101,6 +1101,9 @@ class PublisherMobileApp(models.Model):
 	marketplaceurl = models.TextField(null=True,blank=True)
 	appcategories = models.TextField(null=True,blank=True)
 	gendertarget = models.TextField(null=True,blank=True)
+	ethnicity = models.TextField(null=True,blank=True)
+	age = models.TextField(null=True,blank=True)
+	income = models.TextField(null=True,blank=True)
 	notes = models.TextField(null=True,blank=True)
 	publisherid = models.TextField(db_index=True)
 
@@ -1109,7 +1112,22 @@ class PublisherWebApp(models.Model):
 	websiteurl = models.TextField(null=True,blank=True)
 	categoryfilters = models.TextField(null=True,blank=True)
 	gendertargetting = models.TextField(null=True,blank=True)
+	ethnicity = models.TextField(null=True,blank=True)
+	age = models.TextField(null=True,blank=True)
+	income = models.TextField(null=True,blank=True)
 	notes = models.TextField(null=True,blank=True)
 	publisherid = models.TextField(db_index=True)
+
+class PublisherCompanyDetails(models.Model):
+	owner_name = models.TextField(null=True,blank=True)
+	company_name = models.TextField(null=True,blank=True)
+	address = models.TextField(null=True,blank=True)
+	city = models.TextField(null=True,blank=True)
+	state = models.TextField(null=True,blank=True)
+	zipcode = models.TextField(null=True,blank=True)
+	phone_number = models.TextField(null=True,blank=True)
+	montavo_ad_network_optin = models.NullBooleanField()
+	publisherid = models.TextField(db_index=True)
+
 
 #address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName

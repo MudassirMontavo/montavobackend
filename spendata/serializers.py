@@ -144,3 +144,7 @@ class PublisherMobileAppSerializer(serializers.HyperlinkedModelSerializer):
 class PublisherWebAppSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PublisherWebApp
+
+class PublisherCompanyDetailsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PublisherCompanyDetails

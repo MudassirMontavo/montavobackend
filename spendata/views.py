@@ -226,3 +226,10 @@ class PublisherWebAppViewSet(viewsets.ModelViewSet):
     filter_fields = PublisherWebApp()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('websitename','websiteurl','notes')
+	
+class PublisherCompanyDetailsViewSet(viewsets.ModelViewSet):
+    queryset = PublisherCompanyDetails.objects.all()
+    serializer_class = PublisherCompanyDetailsSerializer
+    filter_fields = PublisherCompanyDetails()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+	
