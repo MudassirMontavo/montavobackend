@@ -18,7 +18,7 @@ class Migration(SchemaMigration):
             ('state', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('zipcode', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('phone_number', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('montavo_ad_network_optin', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('montavo_ad_network_optin', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
             ('publisherid', self.gf('django.db.models.fields.TextField')(db_index=True)),
         ))
         db.send_create_signal(u'spendata', ['PublisherCompanyDetails'])
@@ -1056,7 +1056,7 @@ class Migration(SchemaMigration):
             'city': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'company_name': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'montavo_ad_network_optin': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'montavo_ad_network_optin': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
             'owner_name': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'phone_number': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'publisherid': ('django.db.models.fields.TextField', [], {'db_index': 'True'}),
