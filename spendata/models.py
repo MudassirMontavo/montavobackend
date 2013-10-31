@@ -1131,7 +1131,7 @@ class PublisherCompanyDetails(models.Model):
 
 
 class UserFavoriteDeals(models.Model):
-	user_id = models.IntegerField(db_index=True)
+	user_id = models.TextField(db_index=True)
 	advertiser_id = models.IntegerField()
 	advertiser_name = models.TextField(null=True,blank=True)
 
