@@ -46,6 +46,7 @@ router.register(r'advertiser_stores', views.AdvertiserStoresViewSet)
 router.register(r'publisher_mobile_app', views.PublisherMobileAppViewSet)
 router.register(r'publisher_web_app', views.PublisherWebAppViewSet)
 router.register(r'publisher_company_details', views.PublisherCompanyDetailsViewSet)
+router.register(r'user_favorite_deals', views.UserFavoriteDealsViewSet)
 
 # Admin stuff
 admin.autodiscover()

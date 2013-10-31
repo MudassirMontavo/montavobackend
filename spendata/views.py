@@ -232,4 +232,11 @@ class PublisherCompanyDetailsViewSet(viewsets.ModelViewSet):
     serializer_class = PublisherCompanyDetailsSerializer
     filter_fields = PublisherCompanyDetails()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
+    queryset = UserFavoriteDeals.objects.all()
+    serializer_class = UserFavoriteDealsSerializer
+    filter_fields = UserFavoriteDeals()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
 	

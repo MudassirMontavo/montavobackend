@@ -148,3 +148,8 @@ class PublisherWebAppSerializer(serializers.HyperlinkedModelSerializer):
 class PublisherCompanyDetailsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PublisherCompanyDetails
+
+
+class UserFavoriteDealsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = UserFavoriteDeals

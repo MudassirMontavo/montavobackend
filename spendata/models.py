@@ -1130,4 +1130,9 @@ class PublisherCompanyDetails(models.Model):
 	publisherid = models.TextField(db_index=True)
 
 
+class UserFavoriteDeals(models.Model):
+	user_id = models.IntegerField(db_index=True)
+	advertiser_id = models.IntegerField()
+	advertiser_name = models.TextField(null=True,blank=True)
+
 #address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName
