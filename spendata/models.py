@@ -1082,3 +1082,57 @@ class AcxiomEbdfOrd(models.Model):
     servicearea               = models.TextField(blank=True)
     chainid                   = models.TextField(blank=True)
     cbsa                      = models.TextField(blank=True)
+
+	
+	
+################################
+#### Transition from SQL Server
+
+class AdvertiserStores(models.Model):
+	openx_account_id = models.TextField(db_index=True)
+	acxiom_recordid = models.TextField(blank=True)
+	acxiom_masterrecordid = models.TextField(blank=True,db_index=True)
+	
+
+class PublisherMobileApp(models.Model):
+	applicationname = models.TextField(db_index=True)
+	appstoreurl = models.TextField(null=True,blank=True)
+	playstoreurl = models.TextField(null=True,blank=True)
+	marketplaceurl = models.TextField(null=True,blank=True)
+	appcategories = models.TextField(null=True,blank=True)
+	gendertarget = models.TextField(null=True,blank=True)
+	ethnicity = models.TextField(null=True,blank=True)
+	age = models.TextField(null=True,blank=True)
+	income = models.TextField(null=True,blank=True)
+	notes = models.TextField(null=True,blank=True)
+	publisherid = models.TextField(db_index=True)
+
+class PublisherWebApp(models.Model):
+	websitename = models.TextField(db_index=True)
+	websiteurl = models.TextField(null=True,blank=True)
+	categoryfilters = models.TextField(null=True,blank=True)
+	gendertargetting = models.TextField(null=True,blank=True)
+	ethnicity = models.TextField(null=True,blank=True)
+	age = models.TextField(null=True,blank=True)
+	income = models.TextField(null=True,blank=True)
+	notes = models.TextField(null=True,blank=True)
+	publisherid = models.TextField(db_index=True)
+
+class PublisherCompanyDetails(models.Model):
+	owner_name = models.TextField(null=True,blank=True)
+	company_name = models.TextField(null=True,blank=True)
+	address = models.TextField(null=True,blank=True)
+	city = models.TextField(null=True,blank=True)
+	state = models.TextField(null=True,blank=True)
+	zipcode = models.TextField(null=True,blank=True)
+	phone_number = models.TextField(null=True,blank=True)
+	montavo_ad_network_optin = models.NullBooleanField()
+	publisherid = models.TextField(db_index=True)
+
+
+class UserFavoriteDeals(models.Model):
+	user_id = models.TextField(db_index=True)
+	advertiser_id = models.IntegerField()
+	advertiser_name = models.TextField(null=True,blank=True)
+
+#address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName
