@@ -3,67 +3,70 @@ from django.db import models
 from spendata.signals import post_save_add_user_id
 
 ACXIOM_FIELD_MAPPING = {
-    'DisplayName': 'display_name',
-    'BusinessName': 'business_name',
-    'Corporate Name': 'corporate_name',
-    'StreetNumber': 'street_number',
+    'DisplayName'      : 'display_name',
+    'BusinessName'     : 'business_name',
+    'Corporate Name'   : 'corporate_name',
+    'StreetNumber'     : 'street_number',
     'StreetDirectional': 'street_directional',
-    'StreetName': 'street_name',
-    'StreetSuffix': 'street_suffix',
-    'PostDirectional': 'post_directional',
-    'UnitDesignator': 'unit_designator',
-    'UnitNumber': 'unit_number',
-    'CityName': 'city_name', 
-    'StateCode': 'state_code',
-    'Zip': 'zip_code',
-    'Latitude': 'latitude',
-    'Longitude': 'longitude',
-    }
+    'StreetName'       : 'street_name',
+    'StreetSuffix'     : 'street_suffix',
+    'PostDirectional'  : 'post_directional',
+    'UnitDesignator'   : 'unit_designator',
+    'UnitNumber'       : 'unit_number',
+    'CityName'         : 'city_name',
+    'StateCode'        : 'state_code',
+    'Zip'              : 'zip_code',
+    'Latitude'         : 'latitude',
+    'Longitude'        : 'longitude',
+}
+
 
 class AcxiomData(models.Model):
-    display_name = models.TextField(blank=True)
-    business_name = models.TextField(blank=True)
-    corporate_name = models.TextField(blank=True)
-    street_number = models.TextField(blank=True)
+    display_name       = models.TextField(blank=True)
+    business_name      = models.TextField(blank=True)
+    corporate_name     = models.TextField(blank=True)
+    street_number      = models.TextField(blank=True)
     street_directional = models.TextField(blank=True)
-    street_name = models.TextField(blank=True)
-    street_suffix = models.TextField(blank=True)
-    post_directional = models.TextField(blank=True)
-    unit_designator = models.TextField(blank=True)
-    unit_number = models.TextField(blank=True)
-    city_name = models.TextField(blank=True)
-    state_code = models.TextField(blank=True)
-    zip_code = models.TextField(null=True)
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    street_name        = models.TextField(blank=True)
+    street_suffix      = models.TextField(blank=True)
+    post_directional   = models.TextField(blank=True)
+    unit_designator    = models.TextField(blank=True)
+    unit_number        = models.TextField(blank=True)
+    city_name          = models.TextField(blank=True)
+    state_code         = models.TextField(blank=True)
+    zip_code           = models.TextField(null=True)
+    latitude           = models.FloatField(null=True, blank=True)
+    longitude          = models.FloatField(null=True, blank=True)
 
     def __unicode__(self):
         return self.business_name
 
+
 class MobileAppUserData(models.Model):
-    user_id = models.TextField(blank=True, unique=True, db_index=True)
-    first_name = models.TextField(blank=True)
-    last_name = models.TextField(blank=True)
+    user_id       = models.TextField(blank=True, unique=True, db_index=True)
+    first_name    = models.TextField(blank=True)
+    last_name     = models.TextField(blank=True)
     mobile_number = models.TextField(blank=True)
-    gender = models.TextField(blank=True)
-    user_city = models.TextField(blank=True)
-    user_state = models.TextField(blank=True)
-    user_zip = models.IntegerField(null=True, blank=True)
-    user_country = models.TextField(blank=True)
-    user_email = models.TextField(blank=True, db_index=True)
-    income_range = models.TextField(blank=True)
-    age_range = models.TextField(blank=True)
-    area_code = models.TextField(blank=True)
-    
+    gender        = models.TextField(blank=True)
+    user_city     = models.TextField(blank=True)
+    user_state    = models.TextField(blank=True)
+    user_zip      = models.IntegerField(null=True, blank=True)
+    user_country  = models.TextField(blank=True)
+    user_email    = models.TextField(blank=True, db_index=True)
+    income_range  = models.TextField(blank=True)
+    age_range     = models.TextField(blank=True)
+    area_code     = models.TextField(blank=True)
+
     def __unicode__(self):
         return str(self.user_id)
 
+
 class MobileAppMobileData(models.Model):
-    device_id = models.TextField(blank=True, unique=True, db_index=True)
-    user_id = models.TextField(blank=True, db_index=True)
-    wireless_carrier = models.TextField(blank=True)
+    device_id           = models.TextField(blank=True, unique=True, db_index=True)
+    user_id             = models.TextField(blank=True, db_index=True)
+    wireless_carrier    = models.TextField(blank=True)
     device_manufacturer = models.TextField(blank=True)
-    device_model = models.TextField(blank=True)
+    device_model        = models.TextField(blank=True)
 
     def _get_user(self):
         try:
@@ -76,12 +79,13 @@ class MobileAppMobileData(models.Model):
     def __unicode__(self):
         return str(self.device_id)
 
+
 class MobileAppLocationData(models.Model):
-    device_id = models.TextField(blank=True, db_index=True)
-    user_latitude = models.FloatField(null=True, blank=True)
-    user_longitude = models.FloatField(null=True, blank=True)
+    device_id        = models.TextField(blank=True, db_index=True)
+    user_latitude    = models.FloatField(null=True, blank=True)
+    user_longitude   = models.FloatField(null=True, blank=True)
     capture_time_utc = models.DateTimeField(null=True, blank=True)
- 
+
     def _get_device(self):
         try:
             return MobileAppMobileData.objects.get(device_id=self.device_id)
@@ -93,12 +97,13 @@ class MobileAppLocationData(models.Model):
     def __unicode__(self):
         return str(self.capture_time_utc)
 
+
 class MobileAppUserHomeCircle(models.Model):
-    user_id = models.TextField(blank=True, db_index=True)
-    latitude = models.FloatField(null=True, blank=True)
+    user_id   = models.TextField(blank=True, db_index=True)
+    latitude  = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     weighting = models.FloatField(null=True, blank=True)
-    updated = models.DateTimeField(editable=False, auto_now=True)
+    updated   = models.DateTimeField(editable=False, auto_now=True)
 
     def _get_user(self):
         try:
@@ -108,7 +113,9 @@ class MobileAppUserHomeCircle(models.Model):
 
     mobile_user = property(_get_user)
 
+
 class ELFCommonData(models.Model):
+
     """ Abstract base class for Request"""
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual ad serving event, using the format: 
@@ -279,18 +286,22 @@ the time of the request event.""")
 
     def __unicode__(self):
         return str(self.event_time)
-            
+
     class Meta:
         abstract = True
 
+
 class ELFRequestData(ELFCommonData):
     pass
-    
+
+
 class ELFImpressionData(ELFCommonData):
     pass
 
+
 class ELFClickData(ELFCommonData):
     pass
+
 
 class ELFConversionData(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
@@ -420,6 +431,8 @@ for model in (ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData
 
 ####################
 # OpenX data
+
+
 class OpenXAccount(models.Model):
     primary_contact_id        = models.IntegerField(null=True, blank=True)
     blocked_creativetypes     = models.TextField(blank=True)
@@ -1087,52 +1100,53 @@ class AcxiomEbdfOrd(models.Model):
 	
 ################################
 #### Transition from SQL Server
-
 class AdvertiserStores(models.Model):
-	openx_account_id = models.TextField(db_index=True)
-	acxiom_recordid = models.TextField(blank=True)
-	acxiom_masterrecordid = models.TextField(blank=True,db_index=True)
-	
+    openx_account_id      = models.TextField(db_index=True)
+    acxiom_recordid       = models.TextField(blank=True)
+    acxiom_masterrecordid = models.TextField(blank=True, db_index=True)
+
 
 class PublisherMobileApp(models.Model):
-	applicationname = models.TextField(db_index=True)
-	appstoreurl = models.TextField(null=True,blank=True)
-	playstoreurl = models.TextField(null=True,blank=True)
-	marketplaceurl = models.TextField(null=True,blank=True)
-	appcategories = models.TextField(null=True,blank=True)
-	gendertarget = models.TextField(null=True,blank=True)
-	ethnicity = models.TextField(null=True,blank=True)
-	age = models.TextField(null=True,blank=True)
-	income = models.TextField(null=True,blank=True)
-	notes = models.TextField(null=True,blank=True)
-	publisherid = models.TextField(db_index=True)
+    applicationname = models.TextField(db_index=True)
+    appstoreurl     = models.TextField(null=True, blank=True)
+    playstoreurl    = models.TextField(null=True, blank=True)
+    marketplaceurl  = models.TextField(null=True, blank=True)
+    appcategories   = models.TextField(null=True, blank=True)
+    gendertarget    = models.TextField(null=True, blank=True)
+    ethnicity       = models.TextField(null=True, blank=True)
+    age             = models.TextField(null=True, blank=True)
+    income          = models.TextField(null=True, blank=True)
+    notes           = models.TextField(null=True, blank=True)
+    publisherid     = models.TextField(db_index=True)
+
 
 class PublisherWebApp(models.Model):
-	websitename = models.TextField(db_index=True)
-	websiteurl = models.TextField(null=True,blank=True)
-	categoryfilters = models.TextField(null=True,blank=True)
-	gendertargetting = models.TextField(null=True,blank=True)
-	ethnicity = models.TextField(null=True,blank=True)
-	age = models.TextField(null=True,blank=True)
-	income = models.TextField(null=True,blank=True)
-	notes = models.TextField(null=True,blank=True)
-	publisherid = models.TextField(db_index=True)
+    websitename      = models.TextField(db_index=True)
+    websiteurl       = models.TextField(null=True, blank=True)
+    categoryfilters  = models.TextField(null=True, blank=True)
+    gendertargetting = models.TextField(null=True, blank=True)
+    ethnicity        = models.TextField(null=True, blank=True)
+    age              = models.TextField(null=True, blank=True)
+    income           = models.TextField(null=True, blank=True)
+    notes            = models.TextField(null=True, blank=True)
+    publisherid      = models.TextField(db_index=True)
+
 
 class PublisherCompanyDetails(models.Model):
-	owner_name = models.TextField(null=True,blank=True)
-	company_name = models.TextField(null=True,blank=True)
-	address = models.TextField(null=True,blank=True)
-	city = models.TextField(null=True,blank=True)
-	state = models.TextField(null=True,blank=True)
-	zipcode = models.TextField(null=True,blank=True)
-	phone_number = models.TextField(null=True,blank=True)
-	montavo_ad_network_optin = models.NullBooleanField()
-	publisherid = models.TextField(db_index=True)
+    owner_name               = models.TextField(null=True, blank=True)
+    company_name             = models.TextField(null=True, blank=True)
+    address                  = models.TextField(null=True, blank=True)
+    city                     = models.TextField(null=True, blank=True)
+    state                    = models.TextField(null=True, blank=True)
+    zipcode                  = models.TextField(null=True, blank=True)
+    phone_number             = models.TextField(null=True, blank=True)
+    montavo_ad_network_optin = models.NullBooleanField()
+    publisherid              = models.TextField(db_index=True)
 
 
 class UserFavoriteDeals(models.Model):
-	user_id = models.TextField(db_index=True)
-	advertiser_id = models.IntegerField()
-	advertiser_name = models.TextField(null=True,blank=True)
+    user_id         = models.TextField(db_index=True)
+    advertiser_id   = models.IntegerField()
+    advertiser_name = models.TextField(null=True, blank=True)
 
-#address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName
+# address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName
