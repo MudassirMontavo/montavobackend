@@ -9,6 +9,8 @@ from spendata.models import (
 class ELFRequestDataFilter(django_filters.FilterSet):
     user_latitude = django_filters.RangeFilter()
     user_longitude = django_filters.RangeFilter()
+    event_time_0 = django_filters.DateTimeFilter(lookup_type='gte', name='event_time')
+    event_time_1 = django_filters.DateTimeFilter(lookup_type='lte', name='event_time')
 
     class Meta:
         model = ELFRequestData
@@ -17,6 +19,8 @@ class ELFRequestDataFilter(django_filters.FilterSet):
 class ELFImpressionDataFilter(django_filters.FilterSet):
     user_latitude = django_filters.RangeFilter()
     user_longitude = django_filters.RangeFilter()
+    event_time_0 = django_filters.DateTimeFilter(lookup_type='gte', name='event_time')
+    event_time_1 = django_filters.DateTimeFilter(lookup_type='lte', name='event_time')
 
     class Meta:
         model = ELFImpressionData
@@ -25,6 +29,8 @@ class ELFImpressionDataFilter(django_filters.FilterSet):
 class ELFClickDataFilter(django_filters.FilterSet):
     user_latitude = django_filters.RangeFilter()
     user_longitude = django_filters.RangeFilter()
+    event_time_0 = django_filters.DateTimeFilter(lookup_type='gte', name='event_time')
+    event_time_1 = django_filters.DateTimeFilter(lookup_type='lte', name='event_time')
 
     class Meta:
         model = ELFClickData
@@ -33,6 +39,8 @@ class ELFClickDataFilter(django_filters.FilterSet):
 class ELFConversionDataFilter(django_filters.FilterSet):
     user_latitude = django_filters.RangeFilter()
     user_longitude = django_filters.RangeFilter()
+    event_time_0 = django_filters.DateTimeFilter(lookup_type='gte', name='event_time')
+    event_time_1 = django_filters.DateTimeFilter(lookup_type='lte', name='event_time')
 
     class Meta:
         model = ELFConversionData
