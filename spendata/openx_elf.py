@@ -4,6 +4,7 @@ import csv
 from cStringIO import StringIO
 
 from spendata.models import ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData
+from spendata.models import ELFRequestSerial, ELFImpressionSerial, ELFClickSerial, ELFConversionSerial
 from spendata.openx import OpenXDataRetriever
 
 logger = logging.getLogger(__name__)
@@ -19,16 +20,23 @@ class ELFLogDialect(csv.Dialect):
 
 # Which model to store each type of data in
 ELFDATATYPE = {
-    'request':    ELFRequestData,
-    'click':      ELFClickData,
+    'request'   : ELFRequestData,
+    'click'     : ELFClickData,
     'impression': ELFImpressionData,
     'conversion': ELFConversionData,
 }
 
+ELFSERIALTYPE = {
+    'request'   : ELFRequestSerial,
+    'click'     : ELFClickSerial,
+    'impression': ELFImpressionSerial,
+    'conversion': ELFConversionSerial,
+}
+
 # Serial to start with if nothing in DB
 ELF_FIRST_SERIAL = {
-    'request': 152100,
-    'click': 111100,
+    'request'   : 152100,
+    'click'     : 111100,
     'impression': 137400,
     'conversion': 118250,
 }
@@ -68,7 +76,7 @@ class ELFDataRetriever(OpenXDataRetriever):
 
             # Reverse order - oldest to newest
             for row in dataset[::-1]:
-                logger.debug('Processing serial {}'.format(row.get('serial')))
+                logger.debug('Processing {} serial {}'.format(datatype, row.get('serial')))
 
                 # Only unzip non-zero records
                 if int(row['@recordCount']) == 0:
@@ -82,6 +90,14 @@ class ELFDataRetriever(OpenXDataRetriever):
 
                 data = self.get_gzipped_data(filename)
                 self.save_elf_data(data, row, datatype)
+
+            try:
+                # Save latest serial checked
+                latest_serial = dataset[0].get('serial')
+                save_serial(datatype, latest_serial)
+
+            except Exception as e:
+                pass
 
     def get_gzipped_data(self, url):
         data = self.ox.request(self.ox._resolve_url(url), method='GET')
@@ -125,13 +141,42 @@ def parse_filename(filename):
 
 
 def get_latest_serial(datatype):
-    model = ELFDATATYPE[datatype]
+
+    # 1) Try getting serial model
+    try:
+        model = ELFSERIALTYPE[datatype]
+        serial = model.objects.latest('pk').serial_number
+        logger.warning('Using {} for {}, serial = {}'.format(model, datatype, serial))
+        return serial
+    except model.DoesNotExist:
+        pass
+
+    # 2) Try getting data model
+    try:
+        model = ELFDATATYPE[datatype]
+        serial = model.objects.latest('pk').serial_number
+        logger.warning('Using {} for {}, serial = {}'.format(model, datatype, serial))
+        return serial
+    except model.DoesNotExist:
+        pass
+
+    # 3) Get first serial from dict
+    serial = ELF_FIRST_SERIAL.get(datatype, 0)
+    logger.warning('No serial for {}, starting at {}'.format(datatype, serial))
+    return serial
+
+
+def save_serial(datatype, latest_serial):
+    model = ELFSERIALTYPE[datatype]
+
+    logger.info('Saving latest serial for {}. Serial = {}'.format(datatype, latest_serial))
 
     try:
-        serial = model.objects.latest('pk').serial_number
-    except model.DoesNotExist:
-        serial = ELF_FIRST_SERIAL.get(datatype, 0)
-        logger.warning(
-            'No serial for {}, starting at {}'.format(datatype, serial))
+        obj = model.objects.latest('pk')
+        obj.serial_number = latest_serial
+        obj.save()
 
-    return serial
+    except model.DoesNotExist:
+        # On first create
+        obj = model.objects.create(serial_number=latest_serial)
+        obj.save()

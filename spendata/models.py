@@ -303,6 +303,22 @@ class ELFClickData(ELFCommonData):
     pass
 
 
+class ELFRequestSerial(models.Model):
+    serial_number = models.IntegerField(null=True, blank=True)
+
+
+class ELFImpressionSerial(models.Model):
+    serial_number = models.IntegerField(null=True, blank=True)
+
+
+class ELFClickSerial(models.Model):
+    serial_number = models.IntegerField(null=True, blank=True)
+
+
+class ELFConversionSerial(models.Model):
+    serial_number = models.IntegerField(null=True, blank=True)
+
+
 class ELFConversionData(models.Model):
     event_time = models.DateTimeField(null=True, blank=True, 
         help_text="""The date and time of the actual conversion, using the format: 
