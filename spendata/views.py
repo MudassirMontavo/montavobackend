@@ -201,6 +201,42 @@ class AcxiomBdfPrimaryViewSet(viewsets.ModelViewSet):
 class AcxiomEbdfOrdViewSet(viewsets.ModelViewSet):
     queryset = AcxiomEbdfOrd.objects.all()
     serializer_class = AcxiomEbdfOrdSerializer
-    filter_fields = AcxiomBdfIndex()._meta.get_all_field_names()
+    filter_fields = AcxiomEbdfOrd()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('businessname','corporatename')
+
+	
+################################
+#### Transition from SQL Server
+class AdvertiserStoresViewSet(viewsets.ModelViewSet):
+    queryset = AdvertiserStores.objects.all()
+    serializer_class = AdvertiserStoresSerializer
+    filter_fields = AdvertiserStores()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+class PublisherMobileAppViewSet(viewsets.ModelViewSet):
+    queryset = PublisherMobileApp.objects.all()
+    serializer_class = PublisherMobileAppSerializer
+    filter_fields = PublisherMobileApp()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+class PublisherWebAppViewSet(viewsets.ModelViewSet):
+    queryset = PublisherWebApp.objects.all()
+    serializer_class = PublisherWebAppSerializer
+    filter_fields = PublisherWebApp()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('websitename','websiteurl','notes')
+	
+class PublisherCompanyDetailsViewSet(viewsets.ModelViewSet):
+    queryset = PublisherCompanyDetails.objects.all()
+    serializer_class = PublisherCompanyDetailsSerializer
+    filter_fields = PublisherCompanyDetails()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
+    queryset = UserFavoriteDeals.objects.all()
+    serializer_class = UserFavoriteDealsSerializer
+    filter_fields = UserFavoriteDeals()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+	
