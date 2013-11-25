@@ -149,7 +149,10 @@ class PublisherCompanyDetailsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PublisherCompanyDetails
 
-
 class UserFavoriteDealsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserFavoriteDeals
+
+class OpenXAdTargettingIndexSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXAdTargettingIndex

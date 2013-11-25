@@ -283,3 +283,11 @@ class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
     serializer_class = UserFavoriteDealsSerializer
     filter_fields = UserFavoriteDeals()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+
+	
+class OpenXAdTargettingIndexViewSet(viewsets.ModelViewSet):
+    queryset = OpenXAdTargettingIndex.objects.all()
+    serializer_class = OpenXAdTargettingIndexSerializer
+    filter_class = OpenXAdTargettingIndexFilter
+    filter_fields = OpenXAdTargettingIndex()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)

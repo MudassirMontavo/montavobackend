@@ -1165,4 +1165,15 @@ class UserFavoriteDeals(models.Model):
     advertiser_id   = models.IntegerField()
     advertiser_name = models.TextField(null=True, blank=True)
 
+
+class OpenXAdTargettingIndex(models.Model):
+    ad_id                     = models.IntegerField(db_index=True)
+    account_id                = models.IntegerField(db_index=True)
+    lineitem_id               = models.IntegerField(db_index=True)
+    latitude                  = models.FloatField(null=True)
+    longitude                 = models.FloatField(null=True)
+    title                     = models.TextField(null=True, blank=True)
+    Offer                     = models.TextField(null=True, blank=True)
+
+
 # address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName

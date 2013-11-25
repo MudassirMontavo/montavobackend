@@ -41,12 +41,17 @@ router.register(r'acxiom_bdfprimary', views.AcxiomBdfPrimaryViewSet)
 router.register(r'acxiom_ebdford', views.AcxiomEbdfOrdViewSet)
 
 ################################
-#### Transition from SQL Server
+#### START Transition from SQL Server
 router.register(r'advertiser_stores', views.AdvertiserStoresViewSet)
 router.register(r'publisher_mobile_app', views.PublisherMobileAppViewSet)
 router.register(r'publisher_web_app', views.PublisherWebAppViewSet)
 router.register(r'publisher_company_details', views.PublisherCompanyDetailsViewSet)
 router.register(r'user_favorite_deals', views.UserFavoriteDealsViewSet)
+################################
+#### END Transition from SQL Server
+
+
+router.register(r'OpenXAdTargettingIndex', views.OpenXAdTargettingIndexViewSet)
 
 # Admin stuff
 admin.autodiscover()
