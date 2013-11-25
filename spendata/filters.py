@@ -2,7 +2,8 @@ import django_filters
 from spendata.models import (
     ELFRequestData, ELFImpressionData, ELFClickData, ELFConversionData,
     MobileAppLocationData, MobileAppUserHomeCircle,
-    AcxiomBdfGroups, AcxiomBdfPrimary, AcxiomBdfOrgs
+    AcxiomBdfGroups, AcxiomBdfPrimary, AcxiomBdfOrgs,
+    OpenXAdTargettingIndex
 )
 
 
@@ -84,3 +85,10 @@ class AcxiomBdfOrgsFilter(django_filters.FilterSet):
 
     class Meta:
         model = AcxiomBdfOrgs
+
+class OpenXAdTargettingIndexFilter(django_filters.FilterSet):
+    latitude = django_filters.RangeFilter()
+    longitude = django_filters.RangeFilter()
+
+    class Meta:
+        model = OpenXAdTargettingIndex
