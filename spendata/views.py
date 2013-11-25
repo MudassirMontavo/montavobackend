@@ -285,9 +285,9 @@ class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
 
 	
-class OpenXAdTargettingIndexViewSet(viewsets.ModelViewSet):
-    queryset = OpenXAdTargettingIndex.objects.all()
-    serializer_class = OpenXAdTargettingIndexSerializer
-    filter_class = OpenXAdTargettingIndexFilter
-    filter_fields = OpenXAdTargettingIndex()._meta.get_all_field_names()
+class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
+    queryset = OpenXAdTargetingIndex.objects.all()
+    serializer_class = OpenXAdTargetingIndexSerializer
+    filter_class = OpenXAdTargetingIndexFilter
+    filter_fields = OpenXAdTargetingIndex()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)

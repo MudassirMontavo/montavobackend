@@ -153,6 +153,6 @@ class UserFavoriteDealsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserFavoriteDeals
 
-class OpenXAdTargettingIndexSerializer(serializers.HyperlinkedModelSerializer):
+class OpenXAdTargetingIndexSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = OpenXAdTargettingIndex
+        model = OpenXAdTargetingIndex
