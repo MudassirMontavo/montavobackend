@@ -996,6 +996,7 @@ class AcxiomBdfPrimary(models.Model):
     addressprivacyflag        = models.TextField(blank=True)
     chainid                   = models.TextField(blank=True)
     cbsa                      = models.TextField(blank=True)
+    openx_account_id          = models.TextField(null=True,blank=True,db_index=True)
 
 
 class AcxiomEbdfOrd(models.Model):
@@ -1111,7 +1112,6 @@ class AcxiomEbdfOrd(models.Model):
     servicearea               = models.TextField(blank=True)
     chainid                   = models.TextField(blank=True)
     cbsa                      = models.TextField(blank=True)
-
 	
 	
 ################################
