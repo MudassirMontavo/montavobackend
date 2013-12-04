@@ -44,6 +44,7 @@ ACXIOM_FILES = [
     'bdf_index_ord115967.txt',
     'bdf_orgs_ord115967.txt',
     'bdf_primary_ord115967.txt',
+    'bdf_primary_Hyderabad_dummydata.txt',
     'ebdf_ord115967.txt',
 ]
 
