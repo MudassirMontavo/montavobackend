@@ -56,7 +56,8 @@ class MobileAppUserData(models.Model):
     income_range  = models.TextField(blank=True)
     age_range     = models.TextField(blank=True)
     area_code     = models.TextField(blank=True)
-
+    social_network_id = models.IntegerField(null=True, blank=True)
+	
     def __unicode__(self):
         return str(self.user_id)
 
@@ -713,7 +714,7 @@ class OpenXReport(models.Model):
 #################
 # Acxiom Data
 class AcxiomBdfGroups(models.Model):
-    recordid                  = models.TextField(blank=True)
+    recordid                  = models.TextField(blank=True, db_index=True)
     businessname              = models.TextField(blank=True)
     fulladdress               = models.TextField(blank=True)
     streetnumber              = models.TextField(blank=True)
@@ -795,7 +796,7 @@ class AcxiomBdfGroups(models.Model):
     sohoflag                  = models.TextField(blank=True)
     ethnicownedbusiness       = models.TextField(blank=True)
     womenownedbusiness        = models.TextField(blank=True)
-    masterrecordid            = models.TextField(blank=True)
+    masterrecordid            = models.TextField(blank=True, db_index=True)
     secondphonenumber         = models.TextField(blank=True)
     secondphonenumbercode     = models.TextField(blank=True)
     ageofrecord               = models.TextField(blank=True)
@@ -805,17 +806,17 @@ class AcxiomBdfGroups(models.Model):
 
 
 class AcxiomBdfIndex(models.Model):
-    recordid                  = models.TextField(blank=True)
+    recordid                  = models.TextField(blank=True, db_index=True)
     oneperid                  = models.TextField(blank=True)
     oneperflag                = models.TextField(blank=True)
     orgflag                   = models.TextField(blank=True)
     groupflag                 = models.TextField(blank=True)
     ebdfflag                  = models.TextField(blank=True)
-    masterrecordid            = models.TextField(blank=True)
+    masterrecordid            = models.TextField(blank=True, db_index=True)
 
 
 class AcxiomBdfOrgs(models.Model):
-    recordid                  = models.TextField(blank=True)
+    recordid                  = models.TextField(blank=True, db_index=True)
     businessname              = models.TextField(blank=True)
     fulladdress               = models.TextField(blank=True)
     streetnumber              = models.TextField(blank=True)
@@ -897,7 +898,7 @@ class AcxiomBdfOrgs(models.Model):
     sohoflag                  = models.TextField(blank=True)
     ethnicownedbusiness       = models.TextField(blank=True)
     womenownedbusiness        = models.TextField(blank=True)
-    masterrecordid            = models.TextField(blank=True)
+    masterrecordid            = models.TextField(blank=True, db_index=True)
     secondphonenumber         = models.TextField(blank=True)
     secondphonenumbercode     = models.TextField(blank=True)
     ageofrecord               = models.TextField(blank=True)
@@ -907,7 +908,7 @@ class AcxiomBdfOrgs(models.Model):
 
 
 class AcxiomBdfPrimary(models.Model):
-    recordid                  = models.TextField(blank=True)
+    recordid                  = models.TextField(blank=True, db_index=True)
     businessname              = models.TextField(blank=True)
     fulladdress               = models.TextField(blank=True)
     streetnumber              = models.TextField(blank=True)
@@ -989,7 +990,7 @@ class AcxiomBdfPrimary(models.Model):
     sohoflag                  = models.TextField(blank=True)
     ethnicownedbusiness       = models.TextField(blank=True)
     womenownedbusiness        = models.TextField(blank=True)
-    masterrecordid            = models.TextField(blank=True)
+    masterrecordid            = models.TextField(blank=True, db_index=True)
     secondphonenumber         = models.TextField(blank=True)
     secondphonenumbercode     = models.TextField(blank=True)
     ageofrecord               = models.TextField(blank=True)
@@ -1000,8 +1001,8 @@ class AcxiomBdfPrimary(models.Model):
 
 
 class AcxiomEbdfOrd(models.Model):
-    masterrecordid            = models.TextField(blank=True)
-    recordid                  = models.TextField(blank=True)
+    masterrecordid            = models.TextField(blank=True, db_index=True)
+    recordid                  = models.TextField(blank=True, db_index=True)
     directorynumber           = models.TextField(blank=True)
     pubdate                   = models.TextField(blank=True)
     displayname               = models.TextField(blank=True)
