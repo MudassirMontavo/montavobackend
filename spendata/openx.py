@@ -65,6 +65,10 @@ class OpenXDataRetriever(object):
                 logger.debug(parsed_data)
                 
                 obj, created = model.objects.get_or_create(id=data_id, defaults=parsed_data)
+                if created == False:
+                    logger.debug('Updating ' + name + ' id=' + str(data_id) )
+                    obj = model(**parsed_data)
+                    obj.save()
                 
     
     def get_model_code(self):
