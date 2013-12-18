@@ -909,7 +909,7 @@ class AcxiomBdfOrgs(models.Model):
 
 class AcxiomBdfPrimary(models.Model):
     recordid                  = models.TextField(blank=True, db_index=True)
-    businessname              = models.TextField(blank=True)
+    businessname              = models.TextField(blank=True, db_index=True)
     fulladdress               = models.TextField(blank=True)
     streetnumber              = models.TextField(blank=True)
     streetdirectional         = models.TextField(blank=True)
