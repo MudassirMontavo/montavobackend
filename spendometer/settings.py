@@ -8,6 +8,9 @@ import urlparse
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.dev-spendometer.com', 'dev-spendometer.herokuapp.com']
 
+if os.environ.get('ALLOWED_HOSTS'):
+    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOSTS')]
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ')k%aa$&!-*h2(_fe_-euz3%uyhlq0a&dz!!+i42b62e*6o4%af'
 
