@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User, Group
+from django.utils.functional import cached_property
 from rest_framework import viewsets, permissions, filters
 
 from spendata.models import *
 from spendata.serializers import *
 from spendata.filters import *
-
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
 
@@ -284,10 +285,69 @@ class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
     filter_fields = UserFavoriteDeals()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
 
-	
+# yash technologies :
+# Implementing the search logic for targeting service, Support Ticket Number 3
+
 class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
-    queryset = OpenXAdTargetingIndex.objects.all()
-    serializer_class = OpenXAdTargetingIndexSerializer
-    filter_class = OpenXAdTargetingIndexFilter
-    filter_fields = OpenXAdTargetingIndex()._meta.get_all_field_names()
-    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_param1 = 'longitude'
+    search_param2 = 'latitude'
+    search_param3 = 'radius'
+    search_param4 = 'tags'
+    model = OpenXAdTargetingIndex
+
+    def list(self, request, *args, **kwargs):
+        longitude = request.QUERY_PARAMS.get(self.search_param1, '')
+        latitude = request.QUERY_PARAMS.get(self.search_param2, '')
+        radius = request.QUERY_PARAMS.get(self.search_param3, '')
+      #  catgeory = request.QUERY_PARAMS.get(self.search_param4, '')
+        tags ='%'+request.QUERY_PARAMS.get(self.search_param4, '')+'%'
+        print("longitude"+longitude+"latitude"+latitude+"radius"+radius+"tags"+tags)
+
+
+        # with query parameters like latitude, longitude and radius
+        if len(longitude) > 0 and len(latitude) > 0 and len(radius):
+            query = """ SELECT distances.id,
+                             distances.ad_id, distances.account_id,
+                             distances.lineitem_id,
+                             distances.latitude,
+                             distances.longitude,
+                             distances.title,
+                             distances.offer,
+                             distances.targeting
+                      FROM
+                            (SELECT  id,
+                                     ad_id,
+                                     account_id,
+                                     lineitem_id,
+                                     latitude,
+                                     longitude,
+                                     title,
+                                     offer,
+                                     targeting,
+                                     ( 3959 * acos( cos( radians(%s) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( latitude ))))
+                            AS distance
+                      FROM spendata_openxadtargetingindex where targeting LIKE (%s)
+                       )
+                      AS distances
+                      WHERE distance <%s"""
+
+            queryset = OpenXAdTargetingIndex.objects.raw(query, [latitude, longitude, latitude, tags, radius])
+            page = self.paginate_queryset(list(queryset))
+
+            if page is not None:
+                serializer = self.get_pagination_serializer(page)
+            else:
+                serializer = self.get_serializer(self.queryset, many=True)
+
+            return Response(serializer.data)
+        else:
+            self.object_list = self.filter_queryset(self.get_queryset())
+
+            # Switch between paginated or standard style responses
+            page = self.paginate_queryset(self.object_list)
+            if page is not None:
+                serializer = self.get_pagination_serializer(page)
+            else:
+                serializer = self.get_serializer(self.object_list, many=True)
+
+            return Response(serializer.data)
