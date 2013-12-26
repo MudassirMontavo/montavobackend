@@ -665,7 +665,9 @@ class OpenXAd(models.Model):
     created_date              = models.DateTimeField(null=True, blank=True)
     external_id               = models.TextField(blank=True)
     start_date                = models.DateTimeField(null=True, blank=True)
-    account_id                = models.IntegerField(null=True, blank=True)
+    account_id                = models.IntegerField(null=True, blank=True, db_index=True)
+    offer_brief               = models.TextField(null=True, blank=True)
+    offer                     = models.TextField(null=True, blank=True)
 
 
 class OpenXCreative(models.Model):
@@ -1173,9 +1175,20 @@ class OpenXAdTargetingIndex(models.Model):
     lineitem_id               = models.IntegerField(db_index=True)
     latitude                  = models.FloatField(null=True)
     longitude                 = models.FloatField(null=True)
-    title                     = models.TextField(null=True, blank=True)
-    offer                     = models.TextField(null=True, blank=True)
+    ad_title                  = models.TextField(null=True, blank=True)
     targeting                 = models.TextField(null=True, blank=True)
+    business_name             = models.TextField(null=True, blank=True)
+    business_telephone        = models.TextField(null=True, blank=True)
+    business_address          = models.TextField(null=True, blank=True)
+    business_url              = models.TextField(null=True, blank=True)
+    offer_brief               = models.TextField(null=True, blank=True)
+    offer                     = models.TextField(null=True, blank=True)
 
 
-# address,City,State,ZipCode,CompanyPhoneNumber,PublisherUserRoleId,FirstName,LastName,Email,Notes,CompanyName
+
+
+
+
+
+
+
