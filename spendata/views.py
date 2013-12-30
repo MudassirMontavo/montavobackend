@@ -299,8 +299,8 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
         longitude = request.QUERY_PARAMS.get(self.search_param1, '')
         latitude = request.QUERY_PARAMS.get(self.search_param2, '')
         radius = request.QUERY_PARAMS.get(self.search_param3, '')
-      #  catgeory = request.QUERY_PARAMS.get(self.search_param4, '')
-        tags ='%'+request.QUERY_PARAMS.get(self.search_param4, '')+'%'
+        tags = request.QUERY_PARAMS.get(self.search_param4, '')
+        whereCluase= split_n_chunks(tags)
         print("longitude"+longitude+"latitude"+latitude+"radius"+radius+"tags"+tags)
 
 
@@ -326,12 +326,9 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
                                      targeting,
                                      ( 3959 * acos( cos( radians(%s) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( latitude ))))
                             AS distance
-                      FROM spendata_openxadtargetingindex where targeting LIKE (%s)
-                       )
-                      AS distances
-                      WHERE distance <%s"""
-
-            queryset = OpenXAdTargetingIndex.objects.raw(query, [latitude, longitude, latitude, tags, radius])
+                      FROM spendata_openxadtargetingindex where 1=1 """
+            query=query+whereCluase+""" ) AS distances WHERE distance <%s """
+            queryset = OpenXAdTargetingIndex.objects.raw(query, [latitude, longitude, latitude, radius])
             page = self.paginate_queryset(list(queryset))
 
             if page is not None:
@@ -351,3 +348,18 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
                 serializer = self.get_serializer(self.object_list, many=True)
 
             return Response(serializer.data)
+
+def split_n_chunks(s_list1):
+    """
+
+    @param s:
+    @return:
+    """
+    whereAppend=""
+    s_list = s_list1.split(',')
+    for row in xrange(len(s_list)):
+        if row <1 :
+            whereAppend=whereAppend + "and targeting like ('%%"+str(s_list[row])+"%%')"+ " "
+        else:
+            whereAppend=whereAppend + "or targeting like ('%%"+str(s_list[row])+"%%')"+ " "
+    return whereAppend
