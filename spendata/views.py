@@ -301,8 +301,9 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
         radius = request.QUERY_PARAMS.get(self.search_param3, '')
         tags = request.QUERY_PARAMS.get(self.search_param4, '')
         whereCluase = ''
-        if tags is not None and len(tags) > 0 and tags == "":
-            whereCluase= split_n_chunks(tags)
+        if tags is not None and len(tags) > 0 :
+                whereCluase= split_n_chunks(tags)
+
         # with query parameters like latitude, longitude and radius
         if len(longitude) > 0 and len(latitude) > 0 and len(radius):
             query = """ SELECT *
