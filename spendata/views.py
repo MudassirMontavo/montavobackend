@@ -300,30 +300,14 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
         latitude = request.QUERY_PARAMS.get(self.search_param2, '')
         radius = request.QUERY_PARAMS.get(self.search_param3, '')
         tags = request.QUERY_PARAMS.get(self.search_param4, '')
-        whereCluase= split_n_chunks(tags)
-        print("longitude"+longitude+"latitude"+latitude+"radius"+radius+"tags"+tags)
-
-
+        whereCluase = ''
+        if tags is not None and len(tags) > 0 and tags == "":
+            whereCluase= split_n_chunks(tags)
         # with query parameters like latitude, longitude and radius
         if len(longitude) > 0 and len(latitude) > 0 and len(radius):
-            query = """ SELECT distances.id,
-                             distances.ad_id, distances.account_id,
-                             distances.lineitem_id,
-                             distances.latitude,
-                             distances.longitude,
-                             distances.title,
-                             distances.offer,
-                             distances.targeting
+            query = """ SELECT *
                       FROM
-                            (SELECT  id,
-                                     ad_id,
-                                     account_id,
-                                     lineitem_id,
-                                     latitude,
-                                     longitude,
-                                     title,
-                                     offer,
-                                     targeting,
+                            (SELECT  * ,
                                      ( 3959 * acos( cos( radians(%s) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(%s) ) + sin( radians(%s) ) * sin( radians( latitude ))))
                             AS distance
                       FROM spendata_openxadtargetingindex where 1=1 """
@@ -351,7 +335,6 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
 
 def split_n_chunks(s_list1):
     """
-
     @param s:
     @return:
     """
