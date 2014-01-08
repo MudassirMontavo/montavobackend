@@ -127,6 +127,10 @@ class AcxiomBdfPrimarySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AcxiomBdfPrimary
 
+class AcxiomBdfPrimaryBusinessNameSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AcxiomBdfPrimaryBusinessName
+
 class AcxiomEbdfOrdSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AcxiomEbdfOrd

@@ -1001,6 +1001,8 @@ class AcxiomBdfPrimary(models.Model):
     cbsa                      = models.TextField(blank=True)
     openx_account_id          = models.TextField(null=True,blank=True,db_index=True)
 
+class AcxiomBdfPrimaryBusinessName(models.Model):
+    businessname              = models.TextField(primary_key=True)
 
 class AcxiomEbdfOrd(models.Model):
     masterrecordid            = models.TextField(blank=True, db_index=True)

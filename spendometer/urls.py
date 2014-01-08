@@ -38,6 +38,7 @@ router.register(r'acxiom_bdfgroups', views.AcxiomBdfGroupsViewSet)
 router.register(r'acxiom_bdfindex', views.AcxiomBdfIndexViewSet)
 router.register(r'acxiom_bdforgs', views.AcxiomBdfOrgsViewSet)
 router.register(r'acxiom_bdfprimary', views.AcxiomBdfPrimaryViewSet)
+router.register(r'acxiom_bdfprimary_businessname', views.AcxiomBdfPrimaryBusinessNameViewSet)
 router.register(r'acxiom_ebdford', views.AcxiomEbdfOrdViewSet)
 
 ################################

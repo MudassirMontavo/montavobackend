@@ -6,6 +6,8 @@ import spendata.models
 
 logger = logging.getLogger(__name__)
 
+#TODO: use bulk inserts wherever possible
+
 def read_into_db():
     """ Reading the (old) Acxiom CSV file into the database """
     rowmap = {}
@@ -54,6 +56,9 @@ class AcxiomDataReader(object):
             self.read_file_into_db(acxiom_file)
 
     def read_file_into_db(self, acxiom_file):
+        #using dictionary to avoid DB calls for duplicates
+        logger.info("Reading Acxiom file {} ".format(acxiom_file))
+        businessnames = dict()
         with open(os.path.join("fixtures", acxiom_file),'r') as f:
             reader = csv.DictReader(f, dialect=AcxiomTXTDialect)
             model = getattr(spendata.models, self.get_model_name(acxiom_file))
@@ -61,6 +66,14 @@ class AcxiomDataReader(object):
             for n, line in enumerate(reader):
                 line = {self.get_field_name(k): v for k, v in line.iteritems()}
                 obj, created = model.objects.get_or_create(recordid=line.pop('recordid'), defaults=line)
+                #logger.info(line)
+                if acxiom_file.startswith("bdf_primary"):
+                    businessname = line["businessname"]
+                    logger.info("businessname = {}".format(businessname))
+                    if not businessname in businessnames:
+                        businessnames[businessname] = '1'
+                        logger.info("businessname {} is new, inserting".format(businessname))
+                        spendata.models.AcxiomBdfPrimaryBusinessName.objects.get_or_create(businessname=businessname)
             logger.info("Inserted {} records".format(n))
                 
     def get_model_code(self):
