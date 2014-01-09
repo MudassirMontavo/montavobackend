@@ -52,7 +52,8 @@ router.register(r'user_favorite_deals', views.UserFavoriteDealsViewSet)
 #### END Transition from SQL Server
 
 
-router.register(r'OpenXAdTargetingIndex', views.OpenXAdTargetingIndexViewSet)
+router.register(r'openx_ad_targeting_index', views.OpenXAdTargetingIndexViewSet)
+router.register(r'openx_ad_targeting_index_v2', views.OpenXAdTargetingIndexV2ViewSet)
 
 # Admin stuff
 admin.autodiscover()
