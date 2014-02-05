@@ -45,6 +45,10 @@ class OpenXUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = OpenXUser
 
+class OpenXUserEmailSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenXUserEmail
+
 class OpenXRoleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = OpenXRole

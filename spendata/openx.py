@@ -26,6 +26,7 @@ class OpenXDataRetriever(object):
     # OpenX datatypes we're interested in - e.g. account: /a/account/123 
     DATA_TYPES = ['account', 'user', 'role', 'site', 'adunit', 'adunitgroup', 'order',
         'lineitem', 'ad', 'creative', 'rule', 'report']
+        
     
     _parsers = defaultdict(dict)
     
@@ -45,6 +46,7 @@ class OpenXDataRetriever(object):
         logger.info('OX Logged on')
 
     def get_lookup_data(self):
+        emails = dict()
         
         for name in self.DATA_TYPES:
             
@@ -63,6 +65,17 @@ class OpenXDataRetriever(object):
                 parsed_data = parse_data(data, self._parsers, name)
                 logger.debug('Parsed data')
                 logger.debug(parsed_data)
+                
+                #For OpenXUser, keep a record of unique emails
+                logger.info("downloading table {}".format(name))
+                if name == "user": 
+                    email = parsed_data["email"]
+                    logger.info("email = {}".format(email))
+                    if not email in emails:
+                        emails[email] = '1'
+                        logger.info("email {} is new, inserting".format(email))
+                        spendata.models.OpenXUserEmail.objects.get_or_create(email=email)                
+                
                 
                 obj, created = model.objects.get_or_create(id=data_id, defaults=parsed_data)
                 if created == False:

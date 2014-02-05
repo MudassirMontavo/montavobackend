@@ -97,6 +97,14 @@ class OpenXUserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     search_fields = ('first_name', 'last_name',)
 
+class OpenXUserEmailViewSet(viewsets.ModelViewSet):
+    queryset = OpenXUserEmail.objects.all()
+    serializer_class = OpenXUserEmailSerializer
+    filter_fields = OpenXUserEmail()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('email', )
+
+
 
 class OpenXRoleViewSet(viewsets.ModelViewSet):
     queryset = OpenXRole.objects.all()

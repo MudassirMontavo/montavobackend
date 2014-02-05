@@ -491,6 +491,7 @@ class OpenXAccount(models.Model):
     external_id               = models.TextField(blank=True)
 
 
+
 class OpenXUser(models.Model):
     status                    = models.TextField(blank=True)
     modified_date             = models.DateTimeField(null=True, blank=True)
@@ -508,6 +509,9 @@ class OpenXUser(models.Model):
     external_id               = models.TextField(blank=True)
     email                     = models.TextField(blank=True)
 
+
+class OpenXUserEmail(models.Model):
+    email                     = models.TextField(primary_key=True)
 
 class OpenXRole(models.Model):
     modified_date             = models.DateTimeField(null=True, blank=True)

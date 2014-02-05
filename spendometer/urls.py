@@ -17,6 +17,7 @@ router.register(r'mobile_user_home_circle', views.MobileAppUserHomeCircleViewSet
 
 router.register(r'openx_account', views.OpenXAccountViewSet)
 router.register(r'openx_user', views.OpenXUserViewSet)
+router.register(r'openx_user_email', views.OpenXUserEmailViewSet)
 router.register(r'openx_role', views.OpenXRoleViewSet)
 router.register(r'openx_site', views.OpenXSiteViewSet)
 router.register(r'openx_adunit', views.OpenXAdunitViewSet)
