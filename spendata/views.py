@@ -299,6 +299,8 @@ class UserFavoriteDealsViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
 
 
+
+
 class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
     queryset = OpenXAdTargetingIndex.objects.all()
     serializer_class = OpenXAdTargetingIndexSerializer
@@ -306,6 +308,20 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
     filter_fields = OpenXAdTargetingIndex()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
 
+class OpenXAdTargetingIndexCityViewSet(viewsets.ModelViewSet):
+    queryset = OpenXAdTargetingIndexCity.objects.all()
+    serializer_class = OpenXAdTargetingIndexCitySerializer
+    filter_fields = OpenXAdTargetingIndexCity()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('city',)
+
+
+class OpenXAdTargetingIndexBusinessNameViewSet(viewsets.ModelViewSet):
+    queryset = OpenXAdTargetingIndexBusinessName.objects.all()
+    serializer_class = OpenXAdTargetingIndexBusinessNameSerializer
+    filter_fields = OpenXAdTargetingIndexBusinessName()._meta.get_all_field_names()
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('business_name',)
 
 # yash technologies :
 # Implementing the search logic for targeting service, Support Ticket Number 3

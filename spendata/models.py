@@ -1190,6 +1190,11 @@ class OpenXAdTargetingIndex(models.Model):
     offer_brief               = models.TextField(null=True, blank=True)
     offer                     = models.TextField(null=True, blank=True)
 
+class OpenXAdTargetingIndexCity(models.Model):
+    city                      = models.TextField(primary_key=True)
+
+class OpenXAdTargetingIndexBusinessName(models.Model):
+    business_name             = models.TextField(primary_key=True)
 
 
 

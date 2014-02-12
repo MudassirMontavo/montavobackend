@@ -54,6 +54,8 @@ router.register(r'user_favorite_deals', views.UserFavoriteDealsViewSet)
 
 
 router.register(r'openx_ad_targeting_index', views.OpenXAdTargetingIndexViewSet)
+router.register(r'openx_ad_targeting_index_city', views.OpenXAdTargetingIndexCityViewSet)
+router.register(r'openx_ad_targeting_index_businessname', views.OpenXAdTargetingIndexBusinessNameViewSet)
 router.register(r'openx_ad_targeting_index_v2', views.OpenXAdTargetingIndexV2ViewSet)
 
 # Admin stuff
