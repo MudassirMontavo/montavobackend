@@ -307,6 +307,7 @@ class OpenXAdTargetingIndexViewSet(viewsets.ModelViewSet):
     filter_class = OpenXAdTargetingIndexFilter
     filter_fields = OpenXAdTargetingIndex()._meta.get_all_field_names()
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    search_fields = ('business_name','business_address')
 
 class OpenXAdTargetingIndexCityViewSet(viewsets.ModelViewSet):
     queryset = OpenXAdTargetingIndexCity.objects.all()
